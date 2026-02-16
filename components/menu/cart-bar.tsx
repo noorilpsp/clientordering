@@ -9,6 +9,7 @@ import {
   Sheet,
   SheetContent,
   SheetHeader,
+  SheetTitle,
 } from "@/components/ui/sheet";
 import type { CartItem, MenuItem } from "@/lib/menu-data";
 import { restaurant } from "@/lib/menu-data";
@@ -121,7 +122,7 @@ export function CartBar({
           <SheetContent side="bottom" className="rounded-t-3xl max-h-[90vh] overflow-y-auto px-5 bg-card border-t border-border">
             <SheetHeader className="flex flex-row items-center justify-between pb-4 px-0">
               <ShoppingCart className="h-6 w-6 text-primary" />
-              <h2 className="text-xl font-bold flex-1 text-center font-serif text-foreground">Your Cart</h2>
+              <SheetTitle className="text-xl font-bold flex-1 text-center font-serif text-foreground">Your Cart</SheetTitle>
               <button
                 onClick={() => setIsOpen(false)}
                 className="text-muted-foreground hover:text-foreground transition-colors"
@@ -192,7 +193,7 @@ export function CartBar({
             {/* Header */}
             <SheetHeader className="flex flex-row items-center justify-between pb-4 px-0">
               <ShoppingCart className="h-6 w-6 text-primary" />
-              <h2 className="text-xl font-bold flex-1 text-center font-serif text-foreground">Your Cart</h2>
+              <SheetTitle className="text-xl font-bold flex-1 text-center font-serif text-foreground">Your Cart</SheetTitle>
               <button
                 onClick={() => setIsOpen(false)}
                 className="text-muted-foreground hover:text-foreground transition-colors"
@@ -366,6 +367,9 @@ export function CartBar({
       {/* Delete Confirmation Sheet */}
       <Sheet open={!!itemToDelete} onOpenChange={(open) => !open && setItemToDelete(null)}>
         <SheetContent side="bottom" className="rounded-t-3xl px-5 [&>button]:hidden bg-card border-t border-border">
+          <SheetHeader className="sr-only">
+            <SheetTitle>Remove Item</SheetTitle>
+          </SheetHeader>
           <div className="py-4">
             {(() => {
               const itemBeingDeleted = items.find((item) => item.id === itemToDelete);
