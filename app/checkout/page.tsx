@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronLeft, MapPin, Clock } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import { OrderTypeToggle } from "@/components/checkout/order-type-toggle";
 import { DineInSection } from "@/components/checkout/dine-in-section";
 import { PickupSection } from "@/components/checkout/pickup-section";
@@ -89,15 +88,12 @@ export default function CheckoutPage() {
   const [summaryExpanded, setSummaryExpanded] = useState(false);
   const [tipOption, setTipOption] = useState<TipOption>("none");
   const [customTip, setCustomTip] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState<string>(
-    orderType === "dine-in" ? "pay-now" : "pay-now"
-  );
+  const [paymentMethod, setPaymentMethod] = useState<string>("pay-now");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [saveDetails, setSaveDetails] = useState(false);
 
-  // Calculate tip amount
   let tipAmount = 0;
   if (tipOption === "10") tipAmount = orderSummary.subtotal * 0.1;
   else if (tipOption === "15") tipAmount = orderSummary.subtotal * 0.15;
@@ -106,19 +102,18 @@ export default function CheckoutPage() {
 
   const total = orderSummary.subtotal + orderSummary.tax + tipAmount;
 
-  // Determine if form is complete
   const isFormComplete =
     orderType === "dine-in" || Boolean(name.trim() && phone.trim());
 
   return (
-    <div className="min-h-screen bg-background pb-22 overflow-x-hidden">
+    <div className="min-h-screen bg-background pb-24 overflow-x-hidden">
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-background border-b border-border">
+      <header className="sticky top-0 z-40 bg-card/95 backdrop-blur-xl border-b border-border">
         <div className="flex items-center justify-between px-4 py-4">
-          <Link href="/" className="text-foreground hover:opacity-70">
+          <Link href="/" className="text-foreground hover:text-primary transition-colors">
             <ChevronLeft className="w-6 h-6" />
           </Link>
-          <h1 className="text-xl font-bold text-foreground">Checkout</h1>
+          <h1 className="text-xl font-bold text-foreground font-serif">Checkout</h1>
           <div className="w-6" />
         </div>
       </header>
@@ -129,7 +124,7 @@ export default function CheckoutPage() {
           value={orderType}
           onChange={(type) => {
             setOrderType(type);
-            setPaymentMethod(type === "dine-in" ? "pay-now" : "pay-now");
+            setPaymentMethod("pay-now");
           }}
         />
 
@@ -220,16 +215,6 @@ export default function CheckoutPage() {
         total={total}
         isEnabled={isFormComplete}
         onClick={() => {
-          console.log("[v0] Order placed:", {
-            orderType,
-            tableNumber: orderType === "dine-in" ? tableNumber : undefined,
-            pickupTime: orderType === "pickup" ? selectedTime : undefined,
-            name: orderType === "pickup" ? name : undefined,
-            phone: orderType === "pickup" ? phone : undefined,
-            paymentMethod,
-            total,
-          });
-          // Navigate to order confirmation page
           router.push("/order-confirmation");
         }}
       />

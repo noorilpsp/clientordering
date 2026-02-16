@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 type TipOption = "none" | "10" | "15" | "20" | "custom";
@@ -29,7 +28,7 @@ export function TipSection({
 
   return (
     <div className="mb-0">
-      <h2 className="text-lg font-bold text-foreground mb-3">Add a Tip</h2>
+      <h2 className="text-lg font-bold text-foreground mb-3 font-serif">Add a Tip</h2>
 
       <div className="mt-0 space-y-4">
         {/* Percentage Options */}
@@ -45,16 +44,16 @@ export function TipSection({
                   onTipOptionChange(percent as TipOption);
                   onCustomTipChange("");
                 }}
-                className={`p-4 rounded-lg border-2 transition-colors bg-transparent ${
+                className={`p-4 rounded-xl border-2 transition-colors bg-transparent ${
                   isSelected
-                    ? "text-foreground border-foreground"
-                    : "text-foreground border-border hover:border-foreground shadow-md"
+                    ? "text-foreground border-primary"
+                    : "text-foreground border-border hover:border-primary/50"
                 }`}
               >
                 <div className="flex flex-col items-center">
-                  <span className="text-sm font-medium">{percent}%</span>
+                  <span className="text-sm font-semibold">{percent}%</span>
                   <span className="text-xs text-muted-foreground mt-1">
-                    €{amount.toFixed(2)}
+                    {'\u20AC'}{amount.toFixed(2)}
                   </span>
                 </div>
               </button>
@@ -70,28 +69,28 @@ export function TipSection({
               onTipOptionChange("none");
               onCustomTipChange("");
             }}
-            className={`p-4 rounded-lg border-2 transition-colors bg-transparent ${
+            className={`p-4 rounded-xl border-2 transition-colors bg-transparent ${
               tipOption === "none"
-                ? "text-foreground border-foreground"
-                : "text-foreground border-border hover:border-foreground shadow-md"
+                ? "text-foreground border-primary"
+                : "text-foreground border-border hover:border-primary/50"
             }`}
           >
             <div className="flex flex-col items-center">
-              <span className="text-sm font-medium">None</span>
+              <span className="text-sm font-semibold">None</span>
             </div>
           </button>
           <div className="relative">
             <Input
               type="number"
-              placeholder="Custom €"
+              placeholder="Custom"
               value={customTip}
               onChange={(e) => {
                 onTipOptionChange("custom");
                 onCustomTipChange(e.target.value);
               }}
-              className={`h-full ${
+              className={`h-full bg-secondary text-foreground placeholder:text-muted-foreground rounded-xl ${
                 tipOption === "custom"
-                  ? "border-foreground border-2"
+                  ? "border-primary border-2"
                   : "border-border border-2"
               }`}
               min="0"
@@ -101,8 +100,7 @@ export function TipSection({
         </div>
       </div>
 
-      {/* Thick Separator - Full width */}
-      <div className="h-0.5 bg-gray-200 mt-6 mb-6 -mx-4" />
+      <div className="h-px bg-border mt-6 mb-6" />
     </div>
   );
 }

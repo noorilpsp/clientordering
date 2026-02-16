@@ -41,11 +41,9 @@ export default function MenuPage() {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        // Find which section is currently in the top portion of the viewport
         let activeEntry = null;
         
         for (const entry of entries) {
-          // Prioritize sections that are at the top of the viewport
           if (entry.isIntersecting && entry.boundingClientRect.top <= 150) {
             if (!activeEntry || entry.boundingClientRect.top > activeEntry.boundingClientRect.top) {
               activeEntry = entry;
@@ -53,7 +51,6 @@ export default function MenuPage() {
           }
         }
 
-        // If no section is near the top, find the one most visible
         if (!activeEntry) {
           let mostVisible = entries[0];
           for (const entry of entries) {
@@ -109,7 +106,6 @@ export default function MenuPage() {
     setCart((prevCart) => {
       const existingItem = prevCart.find((cartItem) => cartItem.id === item.id);
       if (existingItem) {
-        // If item has customizations, it's an update to an existing cart item
         const isUpdatingCustomizations = 'selectedOptions' in item || 'sauceQuantities' in item || 'specialInstructions' in item;
         if (isUpdatingCustomizations) {
           return prevCart.map((cartItem) =>
@@ -118,7 +114,6 @@ export default function MenuPage() {
               : cartItem
           );
         } else {
-          // Otherwise, increment quantity
           return prevCart.map((cartItem) =>
             cartItem.id === item.id
               ? { ...cartItem, quantity: cartItem.quantity + 1 }
@@ -132,11 +127,6 @@ export default function MenuPage() {
 
   // Calculate cart total
   const cartTotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
-  // Filter menu items by category
-  const filteredItems = menuItems.filter(
-    (item) => item.categoryId === activeCategory
-  );
 
   // Handle removing item from cart
   const handleRemoveFromCart = useCallback((itemId: string) => {
@@ -170,7 +160,7 @@ export default function MenuPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background pb-24">
+    <div className="min-h-screen bg-background pb-28">
       {/* Hero Section */}
       <HeroSection onInfoClick={() => setIsInfoOpen(true)} />
 
@@ -205,7 +195,7 @@ export default function MenuPage() {
       />
 
       {/* Separator after featured section */}
-      <div className="h-0.5 bg-gray-200 my-0" />
+      <div className="h-px bg-border mx-4" />
 
       {/* Menu Items - All Categories */}
       <div>
@@ -220,8 +210,9 @@ export default function MenuPage() {
             >
               {/* Category Header */}
               {menuItems.filter((item) => item.categoryId === category.id).length > 0 && (
-                <h2 className="text-lg font-bold text-foreground mb-4">
-                  {category.emoji} {category.name}
+                <h2 className="font-serif text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+                  <span className="text-xl">{category.emoji}</span>
+                  <span>{category.name}</span>
                 </h2>
               )}
 
@@ -242,7 +233,7 @@ export default function MenuPage() {
                         quantity={cartItem?.quantity || 0}
                       />
                       {index < itemsInCategory.length - 1 && (
-                        <div className="h-px bg-gray-200 my-3" />
+                        <div className="h-px bg-border/50 my-3" />
                       )}
                     </div>
                   );
@@ -258,9 +249,9 @@ export default function MenuPage() {
               )}
             </div>
 
-            {/* Separator between categories - Full width */}
+            {/* Separator between categories */}
             {categoryIndex < categories.length - 1 && (
-              <div className="h-0.5 bg-gray-200 mt-3 mb-3 -mx-4" />
+              <div className="h-px bg-border mx-4" />
             )}
           </div>
         ))}

@@ -37,23 +37,23 @@ export function CategoryTabs({
 
   return (
     <div
-      className={`bg-card border-b border-border transition-shadow ${
-        isSticky ? "shadow-md" : ""
+      className={`bg-card/95 backdrop-blur-xl border-b border-border transition-all ${
+        isSticky ? "shadow-lg shadow-background/50" : ""
       }`}
     >
       <div
         ref={tabsContainerRef}
-        className="relative flex gap-2 overflow-x-auto px-4 py-3 scrollbar-hide"
+        className="relative flex gap-1 overflow-x-auto px-4 py-3 scrollbar-hide"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {/* Sliding underline */}
         <div
-          className="absolute bottom-0 h-1 bg-foreground transition-all"
+          className="absolute bottom-0 h-0.5 bg-primary transition-all rounded-full"
           style={{
-            left: `${underlineStyle.left + 16}px`,
-            width: `${underlineStyle.width - 32}px`,
-            transitionDuration: "200ms",
-            transitionTimingFunction: "ease-out",
+            left: `${underlineStyle.left}px`,
+            width: `${underlineStyle.width}px`,
+            transitionDuration: "250ms",
+            transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
           }}
         />
 
@@ -64,13 +64,13 @@ export function CategoryTabs({
             type="button"
             onClick={() => onCategoryChange(category.id)}
             data-category-id={category.id}
-            className={`flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2 text-sm transition-colors relative z-10 ${
+            className={`flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2 text-sm transition-all relative z-10 ${
               activeCategory === category.id
-                ? "font-bold text-foreground"
+                ? "font-semibold text-primary"
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >
-            <span>{category.emoji}</span>
+            <span className="text-base">{category.emoji}</span>
             <span>{category.name}</span>
           </button>
         ))}

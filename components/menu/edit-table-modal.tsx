@@ -27,7 +27,6 @@ export function EditTableModal({
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const isScrollingRef = useRef(false);
 
-  // Sync selectedNumber with tableNumber when modal opens
   useEffect(() => {
     if (open) {
       setSelectedNumber(tableNumber);
@@ -38,9 +37,8 @@ export function EditTableModal({
     if (open && scrollContainerRef.current) {
       const selectedNum = parseInt(selectedNumber);
       const itemHeight = 40;
-      const containerHeight = 192; // h-48
+      const containerHeight = 192;
       const centerOffset = containerHeight / 2 - itemHeight / 2;
-      // scrollTop = (item position) - (offset to center)
       const scrollTop = (selectedNum - 1) * itemHeight + 80 - centerOffset;
       isScrollingRef.current = true;
       scrollContainerRef.current.scrollTop = Math.max(0, scrollTop);
@@ -54,9 +52,7 @@ export function EditTableModal({
     if (scrollContainerRef.current && !isScrollingRef.current) {
       const container = scrollContainerRef.current;
       const itemHeight = 40;
-      // scrollTop + center offset gives us the content pixel at the center of the highlight
       const centerContentPixel = container.scrollTop + 96;
-      // Subtract padding (80px) and item height/2 (20px) to get to item start, then divide by itemHeight
       const itemIndex = Math.round((centerContentPixel - 80 - 20) / itemHeight);
       const tableNum = Math.max(1, Math.min(50, itemIndex + 1));
       setSelectedNumber(String(tableNum));
@@ -72,15 +68,15 @@ export function EditTableModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-xs" showCloseButton={false}>
+      <DialogContent className="max-w-xs bg-card border-border" showCloseButton={false}>
         <DialogHeader>
-          <DialogTitle>Select Table Number</DialogTitle>
+          <DialogTitle className="font-serif text-foreground">Select Table Number</DialogTitle>
         </DialogHeader>
         <div className="py-4">
           {/* Scrollable Number Picker */}
           <div className="relative h-48">
-            {/* Center highlight - positioned absolutely behind the numbers */}
-            <div className="absolute left-0 right-0 top-1/2 transform -translate-y-1/2 h-10 bg-blue-50 border-y border-blue-200 pointer-events-none z-0" />
+            {/* Center highlight */}
+            <div className="absolute left-0 right-0 top-1/2 transform -translate-y-1/2 h-10 bg-primary/10 border-y border-primary/20 pointer-events-none z-0 rounded-lg" />
             
             {/* Scrollable container */}
             <div
@@ -95,8 +91,8 @@ export function EditTableModal({
                     onClick={() => setSelectedNumber(num)}
                     className={`w-full h-10 flex items-center justify-center text-lg font-medium snap-center transition-colors relative z-20 ${
                       selectedNumber === num
-                        ? "text-blue-600 font-semibold"
-                        : "text-gray-400 hover:text-gray-600"
+                        ? "text-primary font-bold"
+                        : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
                     {num}
@@ -109,12 +105,12 @@ export function EditTableModal({
         <DialogFooter className="flex-row gap-2">
           <Button
             variant="outline"
-            className="flex-1 bg-transparent"
+            className="flex-1 bg-secondary border-border text-foreground hover:bg-muted"
             onClick={() => onOpenChange(false)}
           >
             Cancel
           </Button>
-          <Button className="flex-1" onClick={handleConfirm}>
+          <Button className="flex-1 bg-primary text-primary-foreground hover:opacity-90" onClick={handleConfirm}>
             Confirm
           </Button>
         </DialogFooter>

@@ -1,7 +1,6 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 
 interface YourDetailsSectionProps {
@@ -27,11 +26,11 @@ export function YourDetailsSection({
 }: YourDetailsSectionProps) {
   return (
     <div className="mb-0 -mt-1.5">
-      <h2 className="text-lg font-bold text-foreground mb-1">Your Details</h2>
+      <h2 className="text-lg font-bold text-foreground mb-1 font-serif">Your Details</h2>
 
       <div className="mt-0 space-y-4">
         <div>
-          <Label htmlFor="name" className="text-md font-medium text-foreground">
+          <Label htmlFor="name" className="text-sm font-medium text-foreground">
             Name <span className="text-destructive">*</span>
           </Label>
           <Input
@@ -40,7 +39,7 @@ export function YourDetailsSection({
             placeholder="Your full name"
             value={name}
             onChange={(e) => onNameChange(e.target.value)}
-            className="mt-1"
+            className="mt-1 bg-secondary border-border text-foreground placeholder:text-muted-foreground focus:border-primary rounded-xl"
           />
         </div>
 
@@ -54,7 +53,7 @@ export function YourDetailsSection({
             placeholder="+32 123 456 789"
             value={phone}
             onChange={(e) => onPhoneChange(e.target.value)}
-            className="mt-1"
+            className="mt-1 bg-secondary border-border text-foreground placeholder:text-muted-foreground focus:border-primary rounded-xl"
           />
         </div>
 
@@ -68,7 +67,7 @@ export function YourDetailsSection({
             placeholder="your@email.com"
             value={email}
             onChange={(e) => onEmailChange(e.target.value)}
-            className="mt-1"
+            className="mt-1 bg-secondary border-border text-foreground placeholder:text-muted-foreground focus:border-primary rounded-xl"
           />
         </div>
 
@@ -79,15 +78,15 @@ export function YourDetailsSection({
             className="flex-shrink-0"
           >
             <div
-              className={`h-5 w-5 rounded border-2 flex items-center justify-center ${
+              className={`h-5 w-5 rounded border-2 flex items-center justify-center transition-colors ${
                 saveDetails
-                  ? "border-blue-600 bg-blue-600"
-                  : "border-gray-300 bg-white"
+                  ? "border-primary bg-primary"
+                  : "border-border bg-secondary"
               }`}
             >
               {saveDetails && (
                 <svg
-                  className="h-full w-full text-white"
+                  className="h-full w-full text-primary-foreground"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -108,8 +107,7 @@ export function YourDetailsSection({
         </div>
       </div>
 
-      {/* Thick Separator - Full width */}
-      <div className="h-0.5 bg-gray-200 mt-3 mb-3 -mx-4" />
+      <div className="h-px bg-border mt-5 mb-3" />
     </div>
   );
 }

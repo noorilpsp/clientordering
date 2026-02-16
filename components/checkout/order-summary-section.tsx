@@ -14,7 +14,6 @@ interface OrderItem {
   specialInstructions?: string;
 }
 
-// Helper function to get customization display parts
 function getCustomizationParts(groupId: string, optionIds: string[]): { groupName: string; optionNames: string } | null {
   const group = customizationGroups.find((g) => g.id === groupId);
   if (!group) return null;
@@ -46,7 +45,7 @@ export function OrderSummarySection({
 }: OrderSummarySectionProps) {
   return (
     <div className="mb-5 -mt-1.5">
-      <h2 className="text-lg font-bold text-foreground mb-0">Order Summary</h2>
+      <h2 className="text-lg font-bold text-foreground mb-0 font-serif">Order Summary</h2>
       <div className="border-t border-b border-border -mt-2">
         <Button
           variant="ghost"
@@ -54,16 +53,14 @@ export function OrderSummarySection({
           onClick={onToggle}
         >
           <div className="flex items-center gap-3 flex-1 -ml-4">
-            {/* Circular Image */}
-            <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 bg-gray-200">
+            <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 bg-secondary border border-border/50">
               <img 
                 src="/placeholder.jpg" 
                 alt="Restaurant" 
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover opacity-80"
               />
             </div>
             
-            {/* Text Content */}
             <div className="flex-1 text-left">
               <div className="text-base font-bold text-foreground">
                 Order Summary
@@ -75,62 +72,60 @@ export function OrderSummarySection({
           </div>
           
           <ChevronDown
-            className={`w-4 h-4 transition-transform flex-shrink-0 ${
+            className={`w-4 h-4 transition-transform flex-shrink-0 text-muted-foreground ${
               expanded ? "rotate-180" : ""
             }`}
           />
-      </Button>
+        </Button>
 
-      {expanded && (
-        <div className="py-4 space-y-3 border-t border-border">
-          {items.map((item, index) => (
-            <div key={index} className="flex justify-between">
-              <div className="flex-1 min-w-0 flex flex-col">
-                <p className="font-semibold text-base text-foreground">
-                  {item.quantity}× {item.name}
-                  {item.variant && ` (${item.variant})`}
-                </p>
-                
-                {/* Customizations */}
-                {(item.selectedOptions || item.sauceQuantities || item.specialInstructions) && (
-                  <div className="mt-1 space-y-1">
-                    {item.selectedOptions && Object.entries(item.selectedOptions).map(([groupId, optionIds]) => {
-                      const parts = getCustomizationParts(groupId, optionIds);
-                      return parts ? (
-                        <p key={groupId} className="text-sm">
-                          <span className="text-gray-700">{parts.groupName}:</span>
-                          <span className="text-gray-500 ml-1">{parts.optionNames}</span>
+        {expanded && (
+          <div className="py-4 space-y-3 border-t border-border">
+            {items.map((item, index) => (
+              <div key={index} className="flex justify-between">
+                <div className="flex-1 min-w-0 flex flex-col">
+                  <p className="font-semibold text-base text-foreground">
+                    {item.quantity}{'\u00D7'} {item.name}
+                    {item.variant && ` (${item.variant})`}
+                  </p>
+                  
+                  {(item.selectedOptions || item.sauceQuantities || item.specialInstructions) && (
+                    <div className="mt-1 space-y-0.5">
+                      {item.selectedOptions && Object.entries(item.selectedOptions).map(([groupId, optionIds]) => {
+                        const parts = getCustomizationParts(groupId, optionIds);
+                        return parts ? (
+                          <p key={groupId} className="text-sm">
+                            <span className="text-muted-foreground">{parts.groupName}:</span>
+                            <span className="text-foreground/70 ml-1">{parts.optionNames}</span>
+                          </p>
+                        ) : null;
+                      })}
+                      {item.sauceQuantities && Object.entries(item.sauceQuantities).map(([sauceId, qty]) => (
+                        qty > 0 && (
+                          <p key={sauceId} className="text-sm">
+                            <span className="text-muted-foreground">Extra Sauce:</span>
+                            <span className="text-foreground/70 ml-1">{sauceId} x{qty}</span>
+                          </p>
+                        )
+                      ))}
+                      {item.specialInstructions && (
+                        <p className="text-sm">
+                          <span className="text-muted-foreground">Note:</span>
+                          <span className="text-foreground/70 ml-1">{item.specialInstructions}</span>
                         </p>
-                      ) : null;
-                    })}
-                    {item.sauceQuantities && Object.entries(item.sauceQuantities).map(([sauceId, qty]) => (
-                      qty > 0 && (
-                        <p key={sauceId} className="text-sm">
-                          <span className="text-gray-700">Extra Sauce:</span>
-                          <span className="text-gray-500 ml-1">{sauceId} x{qty}</span>
-                        </p>
-                      )
-                    ))}
-                    {item.specialInstructions && (
-                      <p className="text-sm">
-                        <span className="text-gray-700">Special Instructions:</span>
-                        <span className="text-gray-500 ml-1">{item.specialInstructions}</span>
-                      </p>
-                    )}
-                  </div>
-                )}
+                      )}
+                    </div>
+                  )}
+                </div>
+                <span className="text-foreground font-medium ml-4 flex-shrink-0">
+                  {'\u20AC'}{(item.price * item.quantity).toFixed(2)}
+                </span>
               </div>
-              <span className="text-foreground font-medium ml-4 flex-shrink-0">
-                €{(item.price * item.quantity).toFixed(2)}
-              </span>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Thick Separator - Full width */}
-      <div className="h-0.5 bg-gray-200 mt-4 mb-0 -mx-4" />
+      <div className="h-px bg-border mt-4 mb-0" />
     </div>
   );
 }

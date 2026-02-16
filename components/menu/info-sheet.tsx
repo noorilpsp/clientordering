@@ -29,8 +29,6 @@ export function InfoSheet({ open, onOpenChange }: InfoSheetProps) {
   const handleTouchMove = (e: React.TouchEvent) => {
     const currentY = e.touches[0].clientY;
     const diff = currentY - touchStartY.current;
-
-    // Only allow drag-to-close if content is at or near the top (within 5px)
     const isScrolledToTop = scrollRef.current ? scrollRef.current.scrollTop <= 5 : true;
 
     if (diff > 0 && isScrolledToTop) {
@@ -53,7 +51,7 @@ export function InfoSheet({ open, onOpenChange }: InfoSheetProps) {
       <SheetContent
         ref={scrollRef}
         side="bottom"
-        className="rounded-t-2xl max-h-[85vh] overflow-y-auto px-4"
+        className="rounded-t-3xl max-h-[85vh] overflow-y-auto px-5 bg-card border-t border-border"
         style={{
           transform: `translateY(${dragY}px)`,
         }}
@@ -70,7 +68,7 @@ export function InfoSheet({ open, onOpenChange }: InfoSheetProps) {
 
         <div>
           <SheetHeader className="pb-4 px-0">
-            <SheetTitle className="text-xl">{restaurant.name}</SheetTitle>
+            <SheetTitle className="text-xl font-serif text-foreground">{restaurant.name}</SheetTitle>
           </SheetHeader>
 
           <div className="space-y-6 pb-20 px-0">
@@ -81,10 +79,12 @@ export function InfoSheet({ open, onOpenChange }: InfoSheetProps) {
               rel="noopener noreferrer"
               className="flex items-start gap-4 hover:opacity-80 transition-opacity"
             >
-              <MapPin className="h-6 w-6 text-blue-600 shrink-0 mt-1" />
+              <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                <MapPin className="h-5 w-5 text-primary" />
+              </div>
               <div>
                 <p className="text-sm font-semibold text-foreground">Address</p>
-                <p className="text-sm text-blue-600 hover:underline">
+                <p className="text-sm text-primary hover:underline">
                   {restaurant.address}
                 </p>
               </div>
@@ -92,12 +92,14 @@ export function InfoSheet({ open, onOpenChange }: InfoSheetProps) {
 
             {/* Phone */}
             <div className="flex items-start gap-4">
-              <Phone className="h-6 w-6 text-blue-600 shrink-0 mt-1" />
+              <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                <Phone className="h-5 w-5 text-primary" />
+              </div>
               <div>
                 <p className="text-sm font-semibold text-foreground">Phone</p>
                 <a
                   href={`tel:${restaurant.phone}`}
-                  className="text-sm text-blue-600 hover:underline"
+                  className="text-sm text-primary hover:underline"
                 >
                   {restaurant.phone}
                 </a>
@@ -106,7 +108,9 @@ export function InfoSheet({ open, onOpenChange }: InfoSheetProps) {
 
             {/* Hours */}
             <div className="flex items-start gap-4">
-              <Clock className="h-6 w-6 text-blue-600 shrink-0 mt-1" />
+              <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                <Clock className="h-5 w-5 text-primary" />
+              </div>
               <div className="flex-1">
                 <p className="text-sm font-semibold text-foreground mb-3">
                   Opening Hours
@@ -129,14 +133,16 @@ export function InfoSheet({ open, onOpenChange }: InfoSheetProps) {
 
             {/* Website */}
             <div className="flex items-start gap-4">
-              <Globe className="h-6 w-6 text-blue-600 shrink-0 mt-1" />
+              <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                <Globe className="h-5 w-5 text-primary" />
+              </div>
               <div>
                 <p className="text-sm font-semibold text-foreground">Website</p>
                 <a
                   href={`https://${restaurant.website}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-blue-600 hover:underline"
+                  className="text-sm text-primary hover:underline"
                 >
                   {restaurant.website}
                 </a>

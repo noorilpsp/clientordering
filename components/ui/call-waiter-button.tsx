@@ -19,7 +19,6 @@ export function CallWaiterButton({ className = "", onCall }: CallWaiterButtonPro
   const buttonRef = useRef<HTMLButtonElement>(null);
   const cooldownIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Cleanup cooldown interval on unmount
   useEffect(() => {
     return () => {
       if (cooldownIntervalRef.current) {
@@ -33,7 +32,6 @@ export function CallWaiterButton({ className = "", onCall }: CallWaiterButtonPro
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     if (buttonState !== "default") return;
 
-    // Get tap coordinates for ripple
     const rect = buttonRef.current?.getBoundingClientRect();
     if (rect) {
       setRipplePosition({
@@ -42,48 +40,35 @@ export function CallWaiterButton({ className = "", onCall }: CallWaiterButtonPro
       });
     }
 
-    // Pressed state
     setButtonState("pressed");
     await delay(100);
-
-    // Calling state - must stay blue
     setButtonState("calling");
     
-    // Call the callback if provided
     const callStartTime = Date.now();
     if (onCall) {
       await onCall();
     } else {
-      // Simulate API call
       await delay(800);
     }
     const callDuration = Date.now() - callStartTime;
-
-    // Ensure calling state (blue) is visible for at least 800ms
-    // This prevents green from appearing too quickly
     const minCallingDuration = 800;
     if (callDuration < minCallingDuration) {
       await delay(minCallingDuration - callDuration);
     }
 
-    // Show toast notification
     setShowToast(true);
 
-    // Haptic feedback on mobile
     if (typeof window !== "undefined" && "vibrate" in navigator) {
       navigator.vibrate([50, 30, 50]);
     }
 
-    // Hide toast after 3 seconds
     setTimeout(() => {
       setShowToast(false);
     }, 3000);
 
-    // Transition directly to cooldown (skip green success state)
     setButtonState("cooldown");
     setCooldownSeconds(30);
 
-    // Countdown timer
     if (cooldownIntervalRef.current) {
       clearInterval(cooldownIntervalRef.current);
     }
@@ -124,7 +109,7 @@ export function CallWaiterButton({ className = "", onCall }: CallWaiterButtonPro
                 ease: "easeInOut",
               }}
             >
-              <Bell className="w-5 h-5" />
+              <Bell className="w-4 h-4" />
             </motion.div>
             <span>Calling...</span>
           </>
@@ -132,14 +117,14 @@ export function CallWaiterButton({ className = "", onCall }: CallWaiterButtonPro
       case "cooldown":
         return (
           <>
-            <Check className="w-5 h-5" />
-            <span>Called · {formatCooldown(cooldownSeconds)}</span>
+            <Check className="w-4 h-4" />
+            <span>Called {'\u00B7'} {formatCooldown(cooldownSeconds)}</span>
           </>
         );
       default:
         return (
           <>
-            <Bell className="w-5 h-5" />
+            <Bell className="w-4 h-4" />
             <span>Call Waiter</span>
           </>
         );
@@ -149,13 +134,13 @@ export function CallWaiterButton({ className = "", onCall }: CallWaiterButtonPro
   const getButtonStyles = () => {
     switch (buttonState) {
       case "pressed":
-        return "bg-gray-800 scale-95";
+        return "bg-primary/80 scale-95";
       case "calling":
-        return "bg-blue-600";
+        return "bg-primary";
       case "cooldown":
-        return "bg-gray-400 cursor-not-allowed";
+        return "bg-muted cursor-not-allowed text-muted-foreground";
       default:
-        return "bg-black hover:bg-gray-900";
+        return "bg-secondary hover:bg-muted border border-border/50 text-foreground";
     }
   };
 
@@ -165,7 +150,7 @@ export function CallWaiterButton({ className = "", onCall }: CallWaiterButtonPro
         ref={buttonRef}
         onClick={handleClick}
         disabled={buttonState === "cooldown" || buttonState === "calling"}
-        className={`h-12 rounded-lg text-white font-semibold flex items-center justify-center gap-2 relative overflow-hidden transition-colors ${getButtonStyles()} ${className}`}
+        className={`h-12 rounded-full font-medium flex items-center justify-center gap-2 relative overflow-hidden transition-colors ${getButtonStyles()} ${className}`}
         animate={{
           scale: buttonState === "pressed" ? 0.95 : 1,
         }}
@@ -179,7 +164,7 @@ export function CallWaiterButton({ className = "", onCall }: CallWaiterButtonPro
         <AnimatePresence>
           {buttonState === "pressed" && (
             <motion.div
-              className="absolute rounded-full bg-white/30"
+              className="absolute rounded-full bg-primary/30"
               initial={{
                 width: 0,
                 height: 0,
@@ -206,7 +191,7 @@ export function CallWaiterButton({ className = "", onCall }: CallWaiterButtonPro
         {/* Pulsing background for calling state */}
         {buttonState === "calling" && (
           <motion.div
-            className="absolute inset-0 bg-blue-500 rounded-lg"
+            className="absolute inset-0 bg-primary/50 rounded-full"
             animate={{
               opacity: [0.5, 0.8, 0.5],
             }}
@@ -240,17 +225,17 @@ export function CallWaiterButton({ className = "", onCall }: CallWaiterButtonPro
             }}
             className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md px-4"
           >
-            <div className="bg-white rounded-lg shadow-lg border-l-4 border-green-500 p-4">
+            <div className="bg-card rounded-xl shadow-xl border border-primary/20 p-4 glow-amber">
               <div className="flex items-start gap-3">
-                <div className="shrink-0">
-                  <Bell className="w-5 h-5 text-green-600" />
+                <div className="shrink-0 h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Bell className="w-4 h-4 text-primary" />
                 </div>
                 <div className="flex-1">
-                  <p className="font-semibold text-gray-900">
+                  <p className="font-semibold text-foreground">
                     Waiter has been notified
                   </p>
-                  <p className="text-sm text-gray-600 mt-1">
-                    They'll be with you soon
+                  <p className="text-sm text-muted-foreground mt-0.5">
+                    {"They'll be with you soon"}
                   </p>
                 </div>
               </div>
@@ -261,4 +246,3 @@ export function CallWaiterButton({ className = "", onCall }: CallWaiterButtonPro
     </>
   );
 }
-

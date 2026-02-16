@@ -7,15 +7,15 @@ interface OrderTypeToggleProps {
 
 export function OrderTypeToggle({ value, onChange }: OrderTypeToggleProps) {
   return (
-    <div className="px-4 py-3 border-b border-border bg-card flex justify-center">
-      <div className="flex rounded-full bg-gray-100 p-1 w-full max-w-xs">
+    <div className="py-3 flex justify-center">
+      <div className="flex rounded-full bg-secondary p-1 w-full max-w-xs border border-border/50">
         <button
           type="button"
           onClick={() => onChange("dine-in")}
-          className={`flex-1 py-2 text-sm font-medium rounded-full transition-all ${
+          className={`flex-1 py-2.5 text-sm font-medium rounded-full transition-all ${
             value === "dine-in"
-              ? "bg-white text-foreground shadow-sm"
-              : "text-gray-500 hover:text-foreground"
+              ? "bg-primary text-primary-foreground shadow-md"
+              : "text-muted-foreground hover:text-foreground"
           }`}
         >
           Dine-in
@@ -23,10 +23,10 @@ export function OrderTypeToggle({ value, onChange }: OrderTypeToggleProps) {
         <button
           type="button"
           onClick={() => onChange("pickup")}
-          className={`flex-1 py-2 text-sm font-medium rounded-full transition-all ${
+          className={`flex-1 py-2.5 text-sm font-medium rounded-full transition-all ${
             value === "pickup"
-              ? "bg-white text-foreground shadow-sm"
-              : "text-gray-500 hover:text-foreground"
+              ? "bg-primary text-primary-foreground shadow-md"
+              : "text-muted-foreground hover:text-foreground"
           }`}
         >
           Pickup

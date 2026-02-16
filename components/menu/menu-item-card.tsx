@@ -5,7 +5,6 @@ import React from "react"
 import { useState } from "react";
 import Image from "next/image";
 import { Plus, Minus, Trash2 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import type { MenuItem } from "@/lib/menu-data";
 
 interface MenuItemCardProps {
@@ -37,81 +36,76 @@ export function MenuItemCard({
   return (
     <div
       onClick={() => onItemClick?.(item)}
-      className={`flex gap-3 cursor-pointer ${
-        isSoldOut ? "opacity-60" : ""
+      className={`flex gap-4 cursor-pointer group py-1 ${
+        isSoldOut ? "opacity-50" : ""
       }`}
     >
       {/* Text Content */}
       <div className="flex flex-1 flex-col justify-between min-w-0">
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1.5">
           <h3
-            className={`font-semibold text-foreground ${
+            className={`font-semibold text-foreground group-hover:text-primary transition-colors ${
               isSoldOut ? "text-muted-foreground" : ""
             }`}
           >
             {item.name}
           </h3>
-          <p className="text-sm text-muted-foreground line-clamp-2">
+          <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
             {item.description}
           </p>
           {item.tags.length > 0 && (
-            <div className="flex gap-1">
+            <div className="flex gap-1.5 flex-wrap">
               {item.tags.map((tag) => {
-                let bgColor = "bg-gray-100";
-                let textColor = "text-gray-700";
-                const tagEmoji =
-                  tag === "Vegetarian"
-                    ? "🌱"
-                    : tag === "Spicy"
-                      ? "🌶️"
-                      : "";
+                let bgColor = "bg-secondary";
+                let textColor = "text-secondary-foreground";
+                let tagIcon = "";
 
                 if (tag === "Vegetarian") {
-                  bgColor = "bg-green-100";
-                  textColor = "text-green-700";
+                  bgColor = "bg-emerald-950/50";
+                  textColor = "text-emerald-400";
+                  tagIcon = "V";
                 } else if (tag === "Spicy") {
-                  bgColor = "bg-red-100";
-                  textColor = "text-red-700";
+                  bgColor = "bg-red-950/50";
+                  textColor = "text-red-400";
+                  tagIcon = "S";
                 } else if (tag === "Gluten-Free") {
-                  bgColor = "bg-blue-100";
-                  textColor = "text-blue-700";
+                  bgColor = "bg-sky-950/50";
+                  textColor = "text-sky-400";
+                  tagIcon = "GF";
                 }
 
                 return (
                   <span
                     key={tag}
-                    className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium ${bgColor} ${textColor}`}
+                    className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium ${bgColor} ${textColor} border border-border/30`}
                   >
-                    {tagEmoji}
+                    {tagIcon && <span className="font-bold text-[10px]">{tagIcon}</span>}
                     {tag}
                   </span>
                 );
               })}
             </div>
           )}
-          <p className="font-semibold text-foreground">
-            €{item.price.toFixed(2)}
+          <p className="font-bold text-primary">
+            {'\u20AC'}{item.price.toFixed(2)}
           </p>
         </div>
       </div>
 
       {/* Image with Add/Quantity Controls */}
       <div className="relative shrink-0 h-28 w-28">
-        <div className="relative h-full w-full overflow-hidden rounded-lg flex items-center justify-center">
+        <div className="relative h-full w-full overflow-hidden rounded-xl border border-border/50 shadow-md">
           <Image
             src={item.image || "/placeholder.svg"}
             alt={item.name}
             fill
-            className={`object-cover ${isSoldOut ? "grayscale" : ""}`}
+            className={`object-cover transition-transform duration-500 group-hover:scale-105 ${isSoldOut ? "grayscale" : ""}`}
           />
           {isSoldOut && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black/40">
-              <Badge
-                variant="destructive"
-                className="text-xs font-semibold"
-              >
+            <div className="absolute inset-0 flex items-center justify-center bg-background/60 backdrop-blur-sm">
+              <span className="text-xs font-bold text-foreground bg-destructive/80 px-2.5 py-1 rounded-full">
                 Sold Out
-              </Badge>
+              </span>
             </div>
           )}
           {!isSoldOut && (
@@ -120,7 +114,7 @@ export function MenuItemCard({
                 <button
                   type="button"
                   onClick={handleAddClick}
-                  className={`absolute bottom-1 right-1 flex h-9 w-9 items-center justify-center rounded-full bg-white text-foreground shadow-md hover:bg-gray-100 transition-all z-10 ${
+                  className={`absolute bottom-1.5 right-1.5 flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-all z-10 ${
                     isPressed ? "scale-125" : "scale-100"
                   }`}
                   style={{
@@ -132,29 +126,29 @@ export function MenuItemCard({
                   <Plus className="h-4 w-4" />
                 </button>
               ) : (
-                <div className="absolute bottom-1 right-1 flex items-center gap-1.5 bg-white rounded-full shadow-md px-2 py-1 z-10">
+                <div className="absolute bottom-1.5 right-1.5 flex items-center gap-1 bg-card/95 backdrop-blur-sm rounded-full shadow-lg px-1.5 py-1 z-10 border border-border/50">
                   <button
                     type="button"
                     onClick={(e) => {
                       e.stopPropagation();
                       onRemoveFromCart?.(item.id);
                     }}
-                    className="flex h-6 w-6 items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
+                    className="flex h-6 w-6 items-center justify-center rounded-full hover:bg-secondary transition-colors"
                     aria-label={`Remove ${item.name} from cart`}
                   >
                     {quantity === 1 ? (
-                      <Trash2 className="h-4 w-4 text-foreground" />
+                      <Trash2 className="h-3.5 w-3.5 text-destructive" />
                     ) : (
-                      <Minus className="h-4 w-4 text-foreground" />
+                      <Minus className="h-3.5 w-3.5 text-foreground" />
                     )}
                   </button>
-                  <span className="text-xs font-semibold text-foreground w-4 text-center">
+                  <span className="text-xs font-bold text-primary w-4 text-center">
                     {quantity}
                   </span>
                   <button
                     type="button"
                     onClick={handleAddClick}
-                    className={`flex h-6 w-6 items-center justify-center rounded-full hover:bg-gray-100 transition-all ${
+                    className={`flex h-6 w-6 items-center justify-center rounded-full hover:bg-secondary transition-all ${
                       isPressed ? "scale-125" : "scale-100"
                     }`}
                     style={{
@@ -163,7 +157,7 @@ export function MenuItemCard({
                     }}
                     aria-label={`Add more ${item.name}`}
                   >
-                    <Plus className="h-4 w-4 text-foreground" />
+                    <Plus className="h-3.5 w-3.5 text-foreground" />
                   </button>
                 </div>
               )}

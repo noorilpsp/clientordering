@@ -20,17 +20,17 @@ export function OrderTypeSection({
 }: OrderTypeSectionProps) {
 
   return (
-    <div className="px-4 py-3 border-b border-border bg-card">
+    <div className="px-4 py-3 border-b border-border bg-card/50">
       <div className="flex items-center justify-between gap-3">
         {/* Order Type Toggle */}
-        <div className="flex rounded-full bg-gray-100 p-1">
+        <div className="flex rounded-full bg-secondary p-1 border border-border/50">
           <button
             type="button"
             onClick={() => onOrderTypeChange("dine-in")}
-            className={`px-3.5 py-1.75 text-sm font-medium rounded-full transition-all ${
+            className={`px-4 py-2 text-sm font-medium rounded-full transition-all ${
               orderType === "dine-in"
-                ? "bg-white text-foreground shadow-sm"
-                : "text-gray-500 hover:text-foreground"
+                ? "bg-primary text-primary-foreground shadow-md"
+                : "text-muted-foreground hover:text-foreground"
             }`}
           >
             Dine-in
@@ -38,10 +38,10 @@ export function OrderTypeSection({
           <button
             type="button"
             onClick={() => onOrderTypeChange("pickup")}
-            className={`px-3.5 py-1.75 text-sm font-medium rounded-full transition-all ${
+            className={`px-4 py-2 text-sm font-medium rounded-full transition-all ${
               orderType === "pickup"
-                ? "bg-white text-foreground shadow-sm"
-                : "text-gray-500 hover:text-foreground"
+                ? "bg-primary text-primary-foreground shadow-md"
+                : "text-muted-foreground hover:text-foreground"
             }`}
           >
             Pickup
@@ -54,14 +54,13 @@ export function OrderTypeSection({
             <CallWaiterButton 
               className="h-8 text-sm w-auto min-w-[120px] px-3"
               onCall={async () => {
-                // Simulate API call
                 await new Promise((resolve) => setTimeout(resolve, 800));
               }}
             />
           </div>
         )}
         {orderType === "pickup" && (
-          <div className="text-xs font-medium text-gray-700">
+          <div className="text-xs font-medium text-muted-foreground bg-secondary px-3 py-1.5 rounded-full border border-border/50">
             est. 30 - 40 min
           </div>
         )}
@@ -73,10 +72,10 @@ export function OrderTypeSection({
           <button
             type="button"
             onClick={onEditTable}
-            className="flex items-center gap-1.5 text-sm font-medium text-gray-700 hover:text-foreground transition-colors bg-gray-100 px-3.5 py-1.75 rounded-full hover:bg-gray-200"
+            className="flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-primary transition-colors bg-secondary px-3.5 py-2 rounded-full border border-border/50 hover:border-primary/30"
           >
             <span>Table {tableNumber}</span>
-            <Pencil className="h-4 w-4" />
+            <Pencil className="h-3.5 w-3.5 text-primary" />
           </button>
         </div>
       )}

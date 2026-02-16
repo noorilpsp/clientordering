@@ -32,17 +32,20 @@ export function DineInSection({
 
   return (
     <>
-      <div className="mb-5 py-4 px-0 bg-card rounded-lg border border-border">
+      <div className="mb-5 py-4 px-0 bg-secondary/50 rounded-xl border border-border/50">
         <button
           type="button"
           onClick={handleTableClick}
           className="flex gap-3 w-full items-center justify-center cursor-pointer"
         >
-          <UtensilsCrossed className="w-6 h-6 flex-shrink-0 text-foreground self-center" />
+          <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center">
+            <UtensilsCrossed className="w-5 h-5 flex-shrink-0 text-primary" />
+          </div>
           <div className="text-center">
-            <h3 className="text-lg text-foreground font-medium">
+            <h3 className="text-lg text-foreground font-semibold">
               Table {tableNumber}
             </h3>
+            <p className="text-xs text-muted-foreground">Tap to change</p>
           </div>
         </button>
       </div>
