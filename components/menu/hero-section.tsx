@@ -12,7 +12,6 @@ interface HeroSectionProps {
 
 export function HeroSection({ onInfoClick, topRightSlot }: HeroSectionProps) {
   const ratingValue = "4.8";
-  const ratingCount = "1.2k";
 
   return (
     <div className="relative">
@@ -76,11 +75,10 @@ export function HeroSection({ onInfoClick, topRightSlot }: HeroSectionProps) {
               <div className="liquid-glass shrink-0 rounded-full px-3 py-1 text-xs font-semibold text-emerald-200">
                 Open now
               </div>
-              <div className="liquid-glass shrink-0 rounded-full px-3 py-1 text-xs text-white/90">
+              <div className="liquid-glass inline-flex shrink-0 items-center justify-center rounded-full px-3 py-1 text-xs text-white/90">
                 <span className="inline-flex items-center gap-1">
                   <Star className="h-3 w-3 fill-amber-300 text-amber-300" />
                   {ratingValue}
-                  <span className="text-white/70">({ratingCount})</span>
                 </span>
               </div>
               <div className="liquid-glass min-w-0 max-w-[min(66vw,22rem)] rounded-full px-3 py-1 text-xs text-white/85">

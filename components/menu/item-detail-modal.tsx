@@ -235,7 +235,7 @@ export function ItemDetailModal({
       <div className="fixed bottom-0 left-0 right-0 z-[1001] flex items-end justify-center animate-in slide-in-from-bottom-80 duration-300">
         <div 
           ref={sheetRef}
-          className="w-full max-w-md rounded-t-3xl bg-white shadow-2xl h-[98vh] overflow-hidden flex flex-col relative will-change-transform"
+          className="liquid-glass relative flex h-[98vh] w-full max-w-md flex-col overflow-hidden rounded-t-3xl border border-border/70 bg-card/90 shadow-2xl shadow-black/35 backdrop-blur-xl will-change-transform"
           style={{ 
             transform: `translateY(${dragY}px)`,
             transition: dragY > 0 ? "none" : "all 0.3s ease-out",
@@ -248,14 +248,14 @@ export function ItemDetailModal({
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
           >
-            <div className="flex h-1 w-12 rounded-full bg-gray-300" />
+            <div className="flex h-1 w-12 rounded-full bg-border" />
           </div>
 
           {/* Close Button */}
           <div className="absolute right-4 top-4 z-10">
             <button
               onClick={() => onOpenChange(false)}
-              className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-border/70 bg-background/65 hover:bg-background/85"
             >
               <X className="h-5 w-5" />
             </button>
@@ -331,7 +331,7 @@ export function ItemDetailModal({
             </div>
 
             {/* Separator */}
-            <div className="-mx-4 h-0.5 bg-gray-200 mt-3 mb-3" />
+            <div className="-mx-4 mt-3 mb-3 h-0.5 bg-border/70" />
 
             {/* Customization Groups */}
             <div className="mt-6 space-y-0">
@@ -644,7 +644,7 @@ export function ItemDetailModal({
           </div>
 
           {/* Add to Cart Button - Sticky */}
-          <div className="absolute bottom-0 left-0 right-0 border-t border-gray-200 bg-white px-4 py-4">
+          <div className="absolute bottom-0 left-0 right-0 border-t border-border/80 bg-card/90 px-4 py-4 backdrop-blur-xl">
             <Button
               onClick={handleAddToCart}
               disabled={!isValid}
