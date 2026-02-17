@@ -108,7 +108,7 @@ export function CategoryTabs({
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
             <div
-              className="absolute top-0 h-full rounded-xl bg-black/90 transition-all pointer-events-none"
+              className="sheen-overlay absolute top-0 h-full rounded-xl border border-white/24 bg-black/76 backdrop-blur-2xl ring-1 ring-white/10 transition-all pointer-events-none dark:border-blue-300/25 dark:bg-blue-900/55 dark:backdrop-blur-xl vivid:border-white/50 vivid:bg-white/72 vivid:backdrop-blur-xl"
               style={{
                 left: `${pillStyle.left}px`,
                 width: `${pillStyle.width}px`,
@@ -126,7 +126,7 @@ export function CategoryTabs({
                 data-category-id={category.id}
                 className={`relative z-10 flex shrink-0 items-center gap-1.5 rounded-xl px-3.5 py-2 text-sm transition-colors duration-250 ${
                   activeCategory === category.id
-                    ? "font-bold text-white"
+                    ? "font-bold text-white dark:text-white vivid:text-black"
                     : "text-muted-foreground hover:text-foreground font-medium"
                 }`}
               >

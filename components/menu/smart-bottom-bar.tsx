@@ -251,7 +251,7 @@ export function SmartBottomBar({
                             <span className="text-xs text-muted-foreground">{specialRequest.length}/150</span>
                             <Button
                               type="button"
-                              className="h-9 bg-emerald-600 text-white hover:bg-emerald-500"
+                              className="sheen-overlay relative h-9 border border-white/26 bg-black/78 text-white backdrop-blur-2xl shadow-[0_10px_24px_rgba(0,0,0,0.4)] ring-1 ring-white/10 hover:bg-black/84 dark:border-blue-300/25 dark:bg-blue-900/55 dark:text-blue-100 dark:backdrop-blur-xl dark:hover:bg-blue-900/70 vivid:border-white/55 vivid:bg-white/72 vivid:text-black vivid:backdrop-blur-xl vivid:hover:bg-white/84"
                               onClick={() => {
                                 if (!specialRequest.trim()) return;
                                 onToast("Request sent to kitchen ✓");
@@ -311,7 +311,7 @@ export function SmartBottomBar({
                           <span className="text-xs text-muted-foreground">{specialRequest.length}/150</span>
                           <Button
                             type="button"
-                            className="h-9 bg-emerald-600 text-white hover:bg-emerald-500"
+                            className="sheen-overlay relative h-9 border border-white/26 bg-black/78 text-white backdrop-blur-2xl shadow-[0_10px_24px_rgba(0,0,0,0.4)] ring-1 ring-white/10 hover:bg-black/84 dark:border-blue-300/25 dark:bg-blue-900/55 dark:text-blue-100 dark:backdrop-blur-xl dark:hover:bg-blue-900/70 vivid:border-white/55 vivid:bg-white/72 vivid:text-black vivid:backdrop-blur-xl vivid:hover:bg-white/84"
                             onClick={() => {
                               if (!specialRequest.trim()) return;
                               onToast("Request sent to kitchen ✓");
@@ -363,7 +363,7 @@ export function SmartBottomBar({
                   type="button"
                   role="button"
                   aria-label={`View cart, ${cartCount} items, ${formatEuro(total)}`}
-                  className="flex min-h-12 w-full items-center justify-between rounded-xl bg-emerald-600 px-4 py-3 text-white transition-transform duration-200 hover:bg-emerald-500 active:scale-[0.99]"
+                  className="sheen-overlay relative flex min-h-12 w-full items-center justify-between rounded-xl border border-white/26 bg-black/78 px-4 py-3 text-white backdrop-blur-2xl shadow-[0_14px_30px_rgba(0,0,0,0.42)] ring-1 ring-white/10 transition-transform duration-200 hover:bg-black/84 active:scale-[0.99] dark:border-blue-300/25 dark:bg-blue-900/55 dark:text-blue-100 dark:backdrop-blur-xl dark:hover:bg-blue-900/70 vivid:border-white/55 vivid:bg-white/72 vivid:text-black vivid:backdrop-blur-xl vivid:hover:bg-white/84"
                   onClick={onViewCart}
                 >
                   <div className="flex items-center gap-2">

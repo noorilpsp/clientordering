@@ -120,7 +120,7 @@ export function MenuItemCard({
                 <button
                   type="button"
                   onClick={handleAddClick}
-                  className={`absolute bottom-1 right-1 flex h-9 w-9 items-center justify-center rounded-full bg-white text-foreground shadow-md hover:bg-gray-100 transition-all ${
+                  className={`sheen-overlay absolute bottom-1 right-1 flex h-9 w-9 items-center justify-center rounded-full border border-white/26 bg-black/78 text-white backdrop-blur-2xl shadow-[0_10px_24px_rgba(0,0,0,0.4)] ring-1 ring-white/10 hover:bg-black/84 dark:border-blue-300/25 dark:bg-blue-900/55 dark:text-blue-100 dark:backdrop-blur-xl dark:hover:bg-blue-900/70 vivid:border-white/55 vivid:bg-white/72 vivid:text-black vivid:backdrop-blur-xl vivid:hover:bg-white/84 transition-all ${
                     isPressed ? "scale-125" : "scale-100"
                   }`}
                   style={{
@@ -132,29 +132,29 @@ export function MenuItemCard({
                   <Plus className="h-4 w-4" />
                 </button>
               ) : (
-                <div className="absolute bottom-1 right-1 flex items-center gap-1.5 bg-white rounded-full shadow-md px-2 py-1">
+                <div className="sheen-overlay absolute bottom-1 right-1 flex items-center gap-1.5 rounded-full border border-white/26 bg-black/78 px-2 py-1 text-white backdrop-blur-2xl shadow-[0_10px_24px_rgba(0,0,0,0.4)] ring-1 ring-white/10 dark:border-blue-300/25 dark:bg-blue-900/55 dark:text-blue-100 dark:backdrop-blur-xl vivid:border-white/55 vivid:bg-white/72 vivid:text-black vivid:backdrop-blur-xl">
                   <button
                     type="button"
                     onClick={(e) => {
                       e.stopPropagation();
                       onRemoveFromCart?.(item.id);
                     }}
-                    className="flex h-6 w-6 items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
+                    className="sheen-overlay relative flex h-6 w-6 items-center justify-center rounded-full border border-white/26 bg-black/78 text-white backdrop-blur-2xl ring-1 ring-white/10 transition-colors hover:bg-black/84 dark:border-blue-300/25 dark:bg-blue-900/55 dark:text-blue-100 dark:backdrop-blur-xl dark:hover:bg-blue-900/70 vivid:border-white/55 vivid:bg-white/72 vivid:text-black vivid:backdrop-blur-xl vivid:hover:bg-white/84"
                     aria-label={`Remove ${item.name} from cart`}
                   >
                     {quantity === 1 ? (
-                      <Trash2 className="h-4 w-4 text-foreground" />
+                      <Trash2 className="h-4 w-4 text-current" />
                     ) : (
-                      <Minus className="h-4 w-4 text-foreground" />
+                      <Minus className="h-4 w-4 text-current" />
                     )}
                   </button>
-                  <span className="text-xs font-semibold text-foreground w-4 text-center">
+                  <span className="w-4 text-center text-xs font-semibold text-current">
                     {quantity}
                   </span>
                   <button
                     type="button"
                     onClick={handleAddClick}
-                    className={`flex h-6 w-6 items-center justify-center rounded-full hover:bg-gray-100 transition-all ${
+                    className={`sheen-overlay relative flex h-6 w-6 items-center justify-center rounded-full border border-white/26 bg-black/78 text-white backdrop-blur-2xl ring-1 ring-white/10 transition-all hover:bg-black/84 dark:border-blue-300/25 dark:bg-blue-900/55 dark:text-blue-100 dark:backdrop-blur-xl dark:hover:bg-blue-900/70 vivid:border-white/55 vivid:bg-white/72 vivid:text-black vivid:backdrop-blur-xl vivid:hover:bg-white/84 ${
                       isPressed ? "scale-125" : "scale-100"
                     }`}
                     style={{
@@ -163,7 +163,7 @@ export function MenuItemCard({
                     }}
                     aria-label={`Add more ${item.name}`}
                   >
-                    <Plus className="h-4 w-4 text-foreground" />
+                    <Plus className="h-4 w-4 text-current" />
                   </button>
                 </div>
               )}

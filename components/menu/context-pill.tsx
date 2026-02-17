@@ -105,7 +105,7 @@ export function ContextPill({
   };
 
   const isDineIn = orderType === "dine-in";
-  const secondaryLabelClass = "font-normal text-muted-foreground";
+  const secondaryLabelClass = "font-normal text-white/75 dark:text-blue-200/80 vivid:text-white/80";
 
   return (
     <div
@@ -140,11 +140,11 @@ export function ContextPill({
           }
         }}
         className={cn(
-          "relative z-[var(--z-hero)] cursor-pointer rounded-xl border backdrop-blur-md transition-all duration-300 liquid-glass",
+          "relative z-[var(--z-hero)] cursor-pointer rounded-xl border backdrop-blur-xl transition-all duration-300 liquid-glass",
           compact && "w-fit",
           expanded
-            ? "border-border/60 bg-card/70 shadow-xl shadow-black/30"
-            : "border-primary/35 bg-card/80 ring-1 ring-primary/25 shadow-lg shadow-black/25"
+            ? "border-white/24 bg-black/76 shadow-[0_14px_34px_rgba(0,0,0,0.42)] ring-1 ring-white/10 dark:border-blue-300/25 dark:bg-blue-900/55 dark:ring-blue-300/20 vivid:border-white/45 vivid:bg-black/72 vivid:ring-white/28"
+            : "border-white/26 bg-black/72 ring-1 ring-white/12 shadow-[0_12px_30px_rgba(0,0,0,0.36)] dark:border-blue-300/25 dark:bg-blue-900/55 dark:ring-blue-300/22 vivid:border-white/45 vivid:bg-black/70 vivid:ring-white/28"
         )}
       >
         <div
@@ -166,23 +166,23 @@ export function ContextPill({
             )}
             <p
               className={cn(
-                "truncate text-foreground",
+                "truncate text-white dark:text-blue-100 vivid:text-white",
                 compact ? "whitespace-nowrap text-xs" : "text-sm"
               )}
             >
               {isDineIn ? (
                 <>
-                  <span className="font-semibold text-foreground">Table {tableNumber}</span>
+                  <span className="font-semibold text-white dark:text-blue-100 vivid:text-white">Table {tableNumber}</span>
                   {checkRequested ? (
                     <span className={secondaryLabelClass}> · Check requested</span>
                   ) : (
-                    <span className="font-semibold text-foreground"> · Dine-in</span>
+                    <span className="font-semibold text-white dark:text-blue-100 vivid:text-white"> · Dine-in</span>
                   )}
                 </>
               ) : (
                 <>
                   <span className="font-semibold">Pickup</span>
-                  <span className="font-normal text-foreground"> · Est. {estimatedPickupMinutes} min</span>
+                  <span className="font-normal text-white dark:text-blue-100 vivid:text-white"> · Est. {estimatedPickupMinutes} min</span>
                 </>
               )}
             </p>
@@ -198,11 +198,11 @@ export function ContextPill({
               compact ? "h-7" : "h-8",
               expanded
                 ? compact
-                  ? "-ml-0.5 w-5 text-muted-foreground hover:text-foreground"
-                  : "w-8 text-muted-foreground hover:text-foreground"
+                  ? "-ml-0.5 w-5 text-white/75 hover:text-white dark:text-blue-200/80 dark:hover:text-blue-100 vivid:text-white/80 vivid:hover:text-white"
+                  : "w-8 text-white/75 hover:text-white dark:text-blue-200/80 dark:hover:text-blue-100 vivid:text-white/80 vivid:hover:text-white"
                 : compact
-                  ? "-ml-0.5 w-5 text-primary hover:text-primary/80"
-                  : "w-8 text-primary hover:text-primary/80"
+                  ? "-ml-0.5 w-5 text-white/90 hover:text-white dark:text-blue-100 dark:hover:text-white vivid:text-white vivid:hover:text-white/85"
+                  : "w-8 text-white/90 hover:text-white dark:text-blue-100 dark:hover:text-white vivid:text-white vivid:hover:text-white/85"
             )}
             onClick={(event) => {
               event.stopPropagation();
@@ -223,13 +223,13 @@ export function ContextPill({
       {expanded && (
         <div
           className={cn(
-            "absolute top-full z-[var(--z-popover)] mt-2 animate-in slide-in-from-top-2 fade-in-0 rounded-xl border border-border/60 bg-card/85 px-3 pb-3 pt-1 shadow-xl shadow-black/35 backdrop-blur-md duration-300 liquid-glass",
+            "absolute top-full z-[var(--z-popover)] mt-2 animate-in slide-in-from-top-2 fade-in-0 rounded-xl border border-white/24 bg-black/78 px-3 pb-3 pt-1 shadow-[0_16px_36px_rgba(0,0,0,0.44)] ring-1 ring-white/10 backdrop-blur-2xl duration-300 liquid-glass dark:border-blue-300/25 dark:bg-blue-900/55 dark:ring-blue-300/20 vivid:border-white/45 vivid:bg-black/74 vivid:ring-white/28",
             compact ? "right-0 w-[min(92vw,19rem)]" : "left-4 right-4"
           )}
         >
           <div className="pt-1">
-            <div className="rounded-lg border border-border/80 bg-background/35 p-2">
-              <div className="mb-2 text-xs font-medium text-muted-foreground">Theme</div>
+            <div className="rounded-lg border border-white/22 bg-black/34 p-2 dark:border-blue-300/22 dark:bg-blue-950/35 vivid:border-white/45 vivid:bg-black/35">
+              <div className="mb-2 text-xs font-medium text-white/75 dark:text-blue-200/80 vivid:text-white/80">Theme</div>
               <div className="grid grid-cols-3 gap-2" role="group" aria-label="Choose theme preview">
                 <Button
                   type="button"
@@ -237,10 +237,10 @@ export function ContextPill({
                   aria-label="Select classic theme"
                   aria-pressed={activeTheme === "classic"}
                   className={cn(
-                    "h-10 rounded-md border px-2 text-foreground hover:bg-accent/70",
+                    "h-10 rounded-md border px-2 text-white hover:bg-white/10 dark:text-blue-100 dark:hover:bg-blue-800/40 vivid:text-white vivid:hover:bg-white/10",
                     activeTheme === "classic"
-                      ? "border-primary/60 bg-primary/20 text-primary"
-                      : "border-border/80"
+                      ? "border-white/45 bg-white/12 text-white dark:border-blue-300/50 dark:bg-blue-400/15 dark:text-blue-100 vivid:border-white/45 vivid:bg-white/12 vivid:text-white"
+                      : "border-white/20 dark:border-blue-300/25 vivid:border-white/30"
                   )}
                   onClick={(event) => {
                     event.stopPropagation();
@@ -255,10 +255,10 @@ export function ContextPill({
                   aria-label="Select night theme"
                   aria-pressed={activeTheme === "night"}
                   className={cn(
-                    "h-10 rounded-md border px-2 text-foreground hover:bg-accent/70",
+                    "h-10 rounded-md border px-2 text-white hover:bg-white/10 dark:text-blue-100 dark:hover:bg-blue-800/40 vivid:text-white vivid:hover:bg-white/10",
                     activeTheme === "night"
-                      ? "border-primary/60 bg-primary/20 text-primary"
-                      : "border-border/80"
+                      ? "border-white/45 bg-white/12 text-white dark:border-blue-300/50 dark:bg-blue-400/15 dark:text-blue-100 vivid:border-white/45 vivid:bg-white/12 vivid:text-white"
+                      : "border-white/20 dark:border-blue-300/25 vivid:border-white/30"
                   )}
                   onClick={(event) => {
                     event.stopPropagation();
@@ -273,10 +273,10 @@ export function ContextPill({
                   aria-label="Select vivid theme"
                   aria-pressed={activeTheme === "vivid"}
                   className={cn(
-                    "h-10 rounded-md border px-2 text-foreground hover:bg-accent/70",
+                    "h-10 rounded-md border px-2 text-white hover:bg-white/10 dark:text-blue-100 dark:hover:bg-blue-800/40 vivid:text-white vivid:hover:bg-white/10",
                     activeTheme === "vivid"
-                      ? "border-primary/60 bg-primary/20 text-primary"
-                      : "border-border/80"
+                      ? "border-white/45 bg-white/12 text-white dark:border-blue-300/50 dark:bg-blue-400/15 dark:text-blue-100 vivid:border-white/45 vivid:bg-white/12 vivid:text-white"
+                      : "border-white/20 dark:border-blue-300/25 vivid:border-white/30"
                   )}
                   onClick={(event) => {
                     event.stopPropagation();
@@ -291,7 +291,7 @@ export function ContextPill({
             <Button
               type="button"
               variant="ghost"
-              className="mt-1 h-12 w-full justify-start gap-3 rounded-lg px-2 text-foreground hover:bg-accent/70"
+              className="mt-1 h-12 w-full justify-start gap-3 rounded-lg px-2 text-white hover:bg-white/10 dark:text-blue-100 dark:hover:bg-blue-800/35 vivid:text-white vivid:hover:bg-white/10"
               onClick={() => {
                 const next = isDineIn ? "pickup" : "dine-in";
                 onOrderTypeChange(next);
@@ -309,15 +309,15 @@ export function ContextPill({
                   <Button
                     type="button"
                     variant="ghost"
-                    className="h-12 w-full justify-start gap-3 rounded-lg px-2 text-foreground hover:bg-accent/70"
+                    className="h-12 w-full justify-start gap-3 rounded-lg px-2 text-white hover:bg-white/10 dark:text-blue-100 dark:hover:bg-blue-800/35 vivid:text-white vivid:hover:bg-white/10"
                     onClick={() => setEditingTable(true)}
                   >
                     <Edit3 className="h-4 w-4" />
                     <span>Change table number</span>
                   </Button>
                 ) : (
-                  <div className="rounded-lg border border-border/80 bg-background/35 p-2">
-                    <div className="mb-2 flex items-center gap-2 text-sm text-foreground">
+                  <div className="rounded-lg border border-white/22 bg-black/34 p-2 dark:border-blue-300/22 dark:bg-blue-950/35 vivid:border-white/45 vivid:bg-black/35">
+                    <div className="mb-2 flex items-center gap-2 text-sm text-white dark:text-blue-100 vivid:text-white">
                       <Edit3 className="h-4 w-4" />
                       <span>Table number</span>
                     </div>
@@ -334,7 +334,7 @@ export function ContextPill({
                             saveTable();
                           }
                         }}
-                        className="h-10 border-input bg-background/80 text-foreground"
+                        className="h-10 border-white/25 bg-black/45 text-white placeholder:text-white/50 dark:border-blue-300/25 dark:bg-blue-950/45 dark:text-blue-100 vivid:border-white/35 vivid:bg-black/55 vivid:text-white vivid:placeholder:text-white/55"
                       />
                       <Button
                         type="button"
@@ -351,7 +351,7 @@ export function ContextPill({
                   <Button
                     type="button"
                     variant="ghost"
-                    className="mt-1 h-12 w-full justify-start gap-3 rounded-lg px-2 text-foreground hover:bg-accent/70"
+                    className="mt-1 h-12 w-full justify-start gap-3 rounded-lg px-2 text-white hover:bg-white/10 dark:text-blue-100 dark:hover:bg-blue-800/35 vivid:text-white vivid:hover:bg-white/10"
                     onClick={(event) => {
                       event.stopPropagation();
                       onCallWaiter();
@@ -373,7 +373,7 @@ export function ContextPill({
             <Button
               type="button"
               variant="ghost"
-              className="mt-1 h-12 w-full justify-start gap-3 rounded-lg px-2 text-foreground hover:bg-accent/70"
+              className="mt-1 h-12 w-full justify-start gap-3 rounded-lg px-2 text-white hover:bg-white/10 dark:text-blue-100 dark:hover:bg-blue-800/35 vivid:text-white vivid:hover:bg-white/10"
               onClick={(event) => {
                 event.stopPropagation();
                 onToast("Group order coming soon", "warning");
@@ -386,7 +386,7 @@ export function ContextPill({
             <Button
               type="button"
               variant="ghost"
-              className="mt-1 h-12 w-full justify-start gap-3 rounded-lg px-2 text-foreground hover:bg-accent/70"
+              className="mt-1 h-12 w-full justify-start gap-3 rounded-lg px-2 text-white hover:bg-white/10 dark:text-blue-100 dark:hover:bg-blue-800/35 vivid:text-white vivid:hover:bg-white/10"
               onClick={(event) => {
                 event.stopPropagation();
                 onToast("Dietary & accessibility options coming soon", "warning");
@@ -396,8 +396,8 @@ export function ContextPill({
               <span>Dietary & accessibility</span>
             </Button>
 
-            <div className="mt-1 rounded-lg border border-border/80 bg-background/35 p-2">
-              <div className="mb-2 text-xs font-medium text-muted-foreground">Language</div>
+            <div className="mt-1 rounded-lg border border-white/22 bg-black/34 p-2 dark:border-blue-300/22 dark:bg-blue-950/35 vivid:border-white/45 vivid:bg-black/35">
+              <div className="mb-2 text-xs font-medium text-white/75 dark:text-blue-200/80 vivid:text-white/80">Language</div>
               <div className="flex gap-2">
                 <Button
                   type="button"
@@ -405,8 +405,10 @@ export function ContextPill({
                   size="sm"
                   aria-pressed={locale === "en"}
                   className={cn(
-                    "flex-1 border",
-                    locale === "en" ? "border-primary/60 bg-primary/20 text-primary" : "border-border/80"
+                    "flex-1 border text-white hover:bg-white/10 dark:text-blue-100 dark:hover:bg-blue-800/35 vivid:text-white vivid:hover:bg-white/10",
+                    locale === "en"
+                      ? "border-white/45 bg-white/12 text-white dark:border-blue-300/50 dark:bg-blue-400/15 dark:text-blue-100 vivid:border-white/45 vivid:bg-white/12 vivid:text-white"
+                      : "border-white/20 dark:border-blue-300/25 vivid:border-white/30"
                   )}
                   onClick={(event) => {
                     event.stopPropagation();
@@ -421,8 +423,10 @@ export function ContextPill({
                   size="sm"
                   aria-pressed={locale === "nl"}
                   className={cn(
-                    "flex-1 border",
-                    locale === "nl" ? "border-primary/60 bg-primary/20 text-primary" : "border-border/80"
+                    "flex-1 border text-white hover:bg-white/10 dark:text-blue-100 dark:hover:bg-blue-800/35 vivid:text-white vivid:hover:bg-white/10",
+                    locale === "nl"
+                      ? "border-white/45 bg-white/12 text-white dark:border-blue-300/50 dark:bg-blue-400/15 dark:text-blue-100 vivid:border-white/45 vivid:bg-white/12 vivid:text-white"
+                      : "border-white/20 dark:border-blue-300/25 vivid:border-white/30"
                   )}
                   onClick={(event) => {
                     event.stopPropagation();
@@ -435,12 +439,12 @@ export function ContextPill({
             </div>
 
             {!isDineIn && (
-              <div className="mt-1 rounded-lg px-2 py-2 text-sm text-muted-foreground">
+              <div className="mt-1 rounded-lg px-2 py-2 text-sm text-white/75 dark:text-blue-200/80 vivid:text-white/80">
                 Pickup instructions: ring the bell at the side entrance.
               </div>
             )}
 
-            <div className="mt-1 flex min-h-12 items-center gap-3 rounded-lg px-2 text-muted-foreground">
+            <div className="mt-1 flex min-h-12 items-center gap-3 rounded-lg px-2 text-white/75 dark:text-blue-200/80 vivid:text-white/80">
               <Wifi className="h-4 w-4 shrink-0" />
               <span>You&apos;ve been here {sessionMinutes} min · Connected</span>
             </div>

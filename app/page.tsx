@@ -68,6 +68,18 @@ export default function MenuPage() {
     localStorage.setItem("theme", menuTheme);
   }, [menuTheme]);
 
+  useEffect(() => {
+    const ua = navigator.userAgent;
+    const isChrome =
+      /Chrome\/\d+/.test(ua) &&
+      !/Edg\/|OPR\/|Vivaldi|Brave|YaBrowser|SamsungBrowser/.test(ua);
+    document.documentElement.classList.toggle("browser-chrome", isChrome);
+
+    return () => {
+      document.documentElement.classList.remove("browser-chrome");
+    };
+  }, []);
+
   const showToast = useCallback((message: string, type: ToastType = "success") => {
     if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
     const nextToast: ToastState = { id: Date.now(), message, type };
@@ -190,6 +202,13 @@ export default function MenuPage() {
       return prevCart.filter((cartItem) => cartItem.id !== itemId);
     });
   }, []);
+
+  const themedToastClass =
+    menuTheme === "classic"
+      ? "border border-white/24 bg-black/78 text-white ring-1 ring-white/10 shadow-[0_12px_26px_rgba(0,0,0,0.45)]"
+      : menuTheme === "night"
+        ? "border border-blue-300/30 bg-blue-900/60 text-blue-100"
+        : "border border-white/60 bg-white/72 text-black";
 
   useEffect(() => {
     if (isSearchOpen || visibleCategories.length === 0) return;
@@ -407,9 +426,7 @@ export default function MenuPage() {
             key={toast.id}
             role="status"
             aria-live="polite"
-            className={`animate-in slide-in-from-bottom-4 fade-in-0 rounded-xl px-4 py-3 text-sm font-medium text-white shadow-xl duration-200 ${
-              toast.type === "success" ? "bg-emerald-600/90" : "bg-amber-600/90"
-            } backdrop-blur`}
+            className={`sheen-overlay relative animate-in slide-in-from-bottom-4 fade-in-0 rounded-xl px-4 py-3 text-sm font-medium shadow-xl duration-200 ${themedToastClass} backdrop-blur`}
           >
             <div className="flex items-center gap-2">
               {toast.type === "success" ? (

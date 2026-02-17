@@ -347,6 +347,79 @@ html.vivid {
   z-index: 1;
 }
 
+/* Sheen overlay only: keeps existing colors/background intact */
+.sheen-overlay {
+  overflow: hidden;
+}
+
+.sheen-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    var(--glass-sheen) 50%,
+    transparent 60%
+  );
+  background-size: 250% 100%;
+  animation: glass-sheen-sweep 8s ease-in-out infinite;
+  opacity: 0.9;
+  z-index: 0;
+}
+
+.sheen-overlay > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Chrome-only tuning: match Safari/Firefox perceived modal glass density */
+.browser-chrome .item-modal-surface {
+  background: rgba(230, 234, 240, 0.93);
+  border-color: rgba(238, 241, 246, 0.4);
+  backdrop-filter: blur(260px) saturate(1.08);
+  -webkit-backdrop-filter: blur(260px) saturate(1.08);
+  box-shadow: 0 24px 44px rgba(0, 0, 0, 0.26);
+}
+
+.browser-chrome .item-modal-surface::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    linear-gradient(180deg, rgba(244, 246, 250, 0.24) 0%, rgba(228, 232, 238, 0.12) 40%, rgba(48, 54, 66, 0.08) 100%),
+    radial-gradient(120% 70% at 50% -10%, rgba(246, 248, 252, 0.18), transparent 58%);
+}
+
+.browser-chrome.dark .item-modal-surface {
+  background: rgba(24, 36, 56, 0.93);
+  border-color: rgba(126, 160, 255, 0.3);
+}
+
+.browser-chrome.vivid .item-modal-surface {
+  background: rgba(8, 14, 18, 0.94);
+  border-color: rgba(16, 185, 129, 0.32);
+}
+
+.browser-chrome .item-modal-footer {
+  background: rgba(228, 233, 239, 0.91);
+  backdrop-filter: blur(220px) saturate(1.06);
+  -webkit-backdrop-filter: blur(220px) saturate(1.06);
+}
+
+.browser-chrome.dark .item-modal-footer {
+  background: rgba(22, 34, 54, 0.91);
+}
+
+.browser-chrome.vivid .item-modal-footer {
+  background: rgba(7, 12, 16, 0.92);
+}
+
 @keyframes glass-sheen-sweep {
   0%, 100% { background-position: 200% 0; }
   50% { background-position: -200% 0; }
@@ -354,6 +427,9 @@ html.vivid {
 
 @media (prefers-reduced-motion: reduce) {
   .liquid-glass::after {
+    animation: none;
+  }
+  .sheen-overlay::after {
     animation: none;
   }
 }

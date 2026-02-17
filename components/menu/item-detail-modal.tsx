@@ -38,6 +38,9 @@ export function ItemDetailModal({
   const scrollRef = useRef<HTMLDivElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
 
+  const glassControlBase =
+    "sheen-overlay relative border border-white/26 bg-black/78 text-white backdrop-blur-2xl ring-1 ring-white/10 transition-colors hover:bg-black/84 dark:border-blue-300/25 dark:bg-blue-900/55 dark:text-blue-100 dark:backdrop-blur-xl dark:hover:bg-blue-900/70 vivid:border-white/55 vivid:bg-white/72 vivid:text-black vivid:backdrop-blur-xl vivid:hover:bg-white/84";
+
   // Initialize with cart item customizations if available
   useEffect(() => {
     setMounted(true);
@@ -235,7 +238,7 @@ export function ItemDetailModal({
       <div className="fixed bottom-0 left-0 right-0 z-[1001] flex items-end justify-center animate-in slide-in-from-bottom-80 duration-300">
         <div 
           ref={sheetRef}
-          className="liquid-glass relative flex h-[98vh] w-full max-w-md flex-col overflow-hidden rounded-t-3xl border border-border/70 bg-card/90 shadow-2xl shadow-black/35 backdrop-blur-xl will-change-transform"
+          className="item-modal-surface liquid-glass relative flex h-[98vh] w-full max-w-md flex-col overflow-hidden rounded-t-3xl border border-border/70 bg-card/90 shadow-2xl shadow-black/35 backdrop-blur-xl will-change-transform"
           style={{ 
             transform: `translateY(${dragY}px)`,
             transition: dragY > 0 ? "none" : "all 0.3s ease-out",
@@ -415,7 +418,7 @@ export function ItemDetailModal({
                                           [option.id]: 1,
                                         }));
                                       }}
-                                      className="flex h-7 w-7 items-center justify-center rounded-full bg-gray-200 text-sm font-semibold text-gray-700 hover:bg-gray-300"
+                                      className={`${glassControlBase} flex h-7 w-7 items-center justify-center rounded-full text-sm font-semibold`}
                                     >
                                       +
                                     </button>
@@ -430,9 +433,9 @@ export function ItemDetailModal({
                                             [option.id]: 0,
                                           }));
                                         }}
-                                        className="flex h-7 w-7 items-center justify-center rounded-full text-sm font-semibold bg-gray-200 text-gray-700 hover:bg-gray-300"
+                                        className={`${glassControlBase} flex h-7 w-7 items-center justify-center rounded-full text-sm font-semibold`}
                                       >
-                                        <Trash2 className="h-3.5 w-3.5" />
+                                        <Trash2 className="h-3.5 w-3.5 text-current" />
                                       </button>
                                       <span className="w-7 text-center text-sm font-semibold">
                                         {qty}
@@ -443,7 +446,7 @@ export function ItemDetailModal({
                                           e.stopPropagation();
                                           addOneSauce();
                                         }}
-                                        className="flex h-7 w-7 items-center justify-center rounded-full bg-gray-200 text-sm font-semibold text-gray-700 hover:bg-gray-300"
+                                        className={`${glassControlBase} flex h-7 w-7 items-center justify-center rounded-full text-sm font-semibold`}
                                       >
                                         +
                                       </button>
@@ -459,7 +462,7 @@ export function ItemDetailModal({
                                             [option.id]: Math.max(0, (prev[option.id] || 0) - 1),
                                           }));
                                         }}
-                                        className="flex h-7 w-7 items-center justify-center rounded-full text-sm font-semibold bg-gray-200 text-gray-700 hover:bg-gray-300"
+                                        className={`${glassControlBase} flex h-7 w-7 items-center justify-center rounded-full text-sm font-semibold`}
                                       >
                                         −
                                       </button>
@@ -472,7 +475,7 @@ export function ItemDetailModal({
                                           e.stopPropagation();
                                           addOneSauce();
                                         }}
-                                        className="flex h-7 w-7 items-center justify-center rounded-full bg-gray-200 text-sm font-semibold text-gray-700 hover:bg-gray-300"
+                                        className={`${glassControlBase} flex h-7 w-7 items-center justify-center rounded-full text-sm font-semibold`}
                                       >
                                         +
                                       </button>
@@ -552,17 +555,17 @@ export function ItemDetailModal({
                               <div className="flex-shrink-0 mt-1">
                                 {isMultiSelect ? (
                                   <div
-                                    className={`h-5 w-5 rounded border-2 flex items-center justify-center ${
+                                    className={`sheen-overlay relative flex h-5 w-5 items-center justify-center rounded border ${
                                       isSelected
-                                        ? "border-blue-600 bg-blue-600"
+                                        ? "border-white/45 bg-black/82 text-white ring-1 ring-white/15 dark:border-blue-200/45 dark:bg-blue-900/68 dark:text-blue-100 dark:ring-blue-200/25 vivid:border-black/45 vivid:bg-white/86 vivid:text-black vivid:ring-black/10"
                                         : isDisabled
-                                        ? "border-gray-300 bg-gray-100"
-                                        : "border-gray-300 bg-white"
+                                        ? "border-white/12 bg-black/35 text-white/45 dark:border-blue-200/15 dark:bg-blue-950/28 dark:text-blue-200/45 vivid:border-black/20 vivid:bg-white/45 vivid:text-black/40"
+                                        : "border-white/26 bg-black/70 text-white ring-1 ring-white/10 dark:border-blue-300/25 dark:bg-blue-900/55 dark:text-blue-100 dark:ring-blue-300/18 vivid:border-white/55 vivid:bg-white/72 vivid:text-black vivid:ring-black/10"
                                     }`}
                                   >
                                     {isSelected && (
                                       <svg
-                                        className="h-full w-full text-white"
+                                        className="h-full w-full text-current"
                                         fill="none"
                                         stroke="currentColor"
                                         viewBox="0 0 24 24"
@@ -578,14 +581,14 @@ export function ItemDetailModal({
                                   </div>
                                 ) : (
                                   <div
-                                    className={`h-5 w-5 rounded-full border-2 flex items-center justify-center ${
+                                    className={`sheen-overlay relative flex h-5 w-5 items-center justify-center rounded-full border ${
                                       isSelected
-                                        ? "border-blue-600 bg-blue-600"
-                                        : "border-gray-300 bg-white"
+                                        ? "border-white/45 bg-black/82 text-white ring-1 ring-white/15 dark:border-blue-200/45 dark:bg-blue-900/68 dark:text-blue-100 dark:ring-blue-200/25 vivid:border-black/45 vivid:bg-white/86 vivid:text-black vivid:ring-black/10"
+                                        : "border-white/26 bg-black/70 text-white ring-1 ring-white/10 dark:border-blue-300/25 dark:bg-blue-900/55 dark:text-blue-100 dark:ring-blue-300/18 vivid:border-white/55 vivid:bg-white/72 vivid:text-black vivid:ring-black/10"
                                     }`}
                                   >
                                     {isSelected && (
-                                      <div className="h-1.5 w-1.5 rounded-full bg-white" />
+                                      <div className="h-1.5 w-1.5 rounded-full bg-current" />
                                     )}
                                   </div>
                                 )}
@@ -629,26 +632,26 @@ export function ItemDetailModal({
             <div className="mt-6 flex items-center justify-center gap-4">
               <button
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200"
+                className={`${glassControlBase} flex h-8 w-8 items-center justify-center rounded-full`}
               >
-                <Minus className="h-4 w-4" />
+                <Minus className="h-4 w-4 text-current" />
               </button>
               <span className="text-lg font-semibold">{quantity}</span>
               <button
                 onClick={() => setQuantity(quantity + 1)}
-                className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200"
+                className={`${glassControlBase} flex h-8 w-8 items-center justify-center rounded-full`}
               >
-                <Plus className="h-4 w-4" />
+                <Plus className="h-4 w-4 text-current" />
               </button>
             </div>
           </div>
 
           {/* Add to Cart Button - Sticky */}
-          <div className="absolute bottom-0 left-0 right-0 border-t border-border/80 bg-card/90 px-4 py-4 backdrop-blur-xl">
+          <div className="item-modal-footer liquid-glass absolute bottom-0 left-0 right-0 rounded-t-2xl border-t border-border/70 bg-card/85 px-4 py-4 shadow-lg shadow-black/30 backdrop-blur-xl">
             <Button
               onClick={handleAddToCart}
               disabled={!isValid}
-              className="w-full rounded-full bg-black py-6 text-white disabled:bg-gray-300"
+              className="sheen-overlay relative flex min-h-12 w-full items-center justify-center rounded-xl border border-white/26 bg-black/78 px-4 py-3 text-white backdrop-blur-2xl shadow-[0_14px_30px_rgba(0,0,0,0.42)] ring-1 ring-white/10 transition-transform duration-200 hover:bg-black/84 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-black/78 dark:border-blue-300/25 dark:bg-blue-900/55 dark:text-blue-100 dark:backdrop-blur-xl dark:hover:bg-blue-900/70 vivid:border-white/55 vivid:bg-white/72 vivid:text-black vivid:backdrop-blur-xl vivid:hover:bg-white/84"
             >
               Add to Cart — €{totalPrice.toFixed(2)}
             </Button>
