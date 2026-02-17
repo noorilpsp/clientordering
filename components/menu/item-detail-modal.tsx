@@ -366,9 +366,26 @@ export function ItemDetailModal({
                         {group.options.map((option, optionIndex) => {
                           const qty = sauceQuantities[option.id] || 0;
 
+                          const addOneSauce = () =>
+                            setSauceQuantities((prev) => ({
+                              ...prev,
+                              [option.id]: (prev[option.id] || 0) + 1,
+                            }));
+
                           return (
                             <div key={option.id}>
-                              <div className="flex w-full items-start justify-between gap-3 px-0 py-3">
+                              <div
+                                role="button"
+                                tabIndex={0}
+                                onClick={addOneSauce}
+                                onKeyDown={(e) => {
+                                  if (e.key === "Enter" || e.key === " ") {
+                                    e.preventDefault();
+                                    addOneSauce();
+                                  }
+                                }}
+                                className="flex w-full cursor-pointer items-start justify-between gap-3 px-0 py-3 rounded-lg hover:bg-muted/50 transition-colors"
+                              >
                                 <div className="flex-1">
                                   <p className="text-sm font-medium text-foreground">
                                     {option.name}
@@ -377,15 +394,20 @@ export function ItemDetailModal({
                                     +€{option.price.toFixed(2)}
                                   </p>
                                 </div>
-                                <div className="flex-shrink-0 flex items-center gap-2">
+                                <div
+                                  className="flex-shrink-0 flex items-center gap-2"
+                                  onClick={(e) => e.stopPropagation()}
+                                >
                                   {qty === 0 ? (
                                     <button
-                                      onClick={() =>
+                                      type="button"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
                                         setSauceQuantities((prev) => ({
                                           ...prev,
                                           [option.id]: 1,
-                                        }))
-                                      }
+                                        }));
+                                      }}
                                       className="flex h-7 w-7 items-center justify-center rounded-full bg-gray-200 text-sm font-semibold text-gray-700 hover:bg-gray-300"
                                     >
                                       +
@@ -393,12 +415,14 @@ export function ItemDetailModal({
                                   ) : qty === 1 ? (
                                     <>
                                       <button
-                                        onClick={() =>
+                                        type="button"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
                                           setSauceQuantities((prev) => ({
                                             ...prev,
                                             [option.id]: 0,
-                                          }))
-                                        }
+                                          }));
+                                        }}
                                         className="flex h-7 w-7 items-center justify-center rounded-full text-sm font-semibold bg-gray-200 text-gray-700 hover:bg-gray-300"
                                       >
                                         <Trash2 className="h-3.5 w-3.5" />
@@ -407,12 +431,11 @@ export function ItemDetailModal({
                                         {qty}
                                       </span>
                                       <button
-                                        onClick={() =>
-                                          setSauceQuantities((prev) => ({
-                                            ...prev,
-                                            [option.id]: (prev[option.id] || 0) + 1,
-                                          }))
-                                        }
+                                        type="button"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          addOneSauce();
+                                        }}
                                         className="flex h-7 w-7 items-center justify-center rounded-full bg-gray-200 text-sm font-semibold text-gray-700 hover:bg-gray-300"
                                       >
                                         +
@@ -421,12 +444,14 @@ export function ItemDetailModal({
                                   ) : (
                                     <>
                                       <button
-                                        onClick={() =>
+                                        type="button"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
                                           setSauceQuantities((prev) => ({
                                             ...prev,
                                             [option.id]: Math.max(0, (prev[option.id] || 0) - 1),
-                                          }))
-                                        }
+                                          }));
+                                        }}
                                         className="flex h-7 w-7 items-center justify-center rounded-full text-sm font-semibold bg-gray-200 text-gray-700 hover:bg-gray-300"
                                       >
                                         −
@@ -435,12 +460,11 @@ export function ItemDetailModal({
                                         {qty}
                                       </span>
                                       <button
-                                        onClick={() =>
-                                          setSauceQuantities((prev) => ({
-                                            ...prev,
-                                            [option.id]: (prev[option.id] || 0) + 1,
-                                          }))
-                                        }
+                                        type="button"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          addOneSauce();
+                                        }}
                                         className="flex h-7 w-7 items-center justify-center rounded-full bg-gray-200 text-sm font-semibold text-gray-700 hover:bg-gray-300"
                                       >
                                         +

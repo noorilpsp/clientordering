@@ -36,8 +36,15 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`font-sans antialiased`}>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("theme");if(t==="night")document.documentElement.classList.add("dark");else if(t==="vivid")document.documentElement.classList.add("vivid")}catch(e){}})()`,
+          }}
+        />
+      </head>
+      <body className="min-h-[100dvh] min-h-screen font-sans antialiased">
         {children}
         <Analytics />
       </body>

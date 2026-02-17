@@ -2,76 +2,136 @@
 @import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
+@custom-variant vivid (&:is(.vivid *));
 
+/* ═══════════════════════════════════════════════════
+   THEME: Classic (Light)  —  Sun icon
+   Clean, warm, airy — the default
+   ═══════════════════════════════════════════════════ */
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0 0 0);
+  --background: oklch(0.985 0.002 75);
+  --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0 0 0);
+  --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0 0 0);
-  --primary: oklch(1 0 0);
-  --primary-foreground: oklch(0 0 0);
-  --secondary: oklch(1 0 0);
-  --secondary-foreground: oklch(0 0 0);
-  --muted: oklch(1 0 0);
-  --muted-foreground: oklch(0 0 0);
-  --accent: oklch(1 0 0);
-  --accent-foreground: oklch(0 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.955 0.002 75);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.955 0.002 75);
+  --muted-foreground: oklch(0.46 0.01 286);
+  --accent: oklch(0.955 0.002 75);
+  --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(1 0 0);
-  --input: oklch(1 0 0);
-  --ring: oklch(1 0 0);
-  --chart-1: oklch(1 0 0);
-  --chart-2: oklch(1 0 0);
-  --chart-3: oklch(1 0 0);
-  --chart-4: oklch(1 0 0);
-  --chart-5: oklch(1 0 0);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.908 0.004 75);
+  --input: oklch(0.908 0.004 75);
+  --ring: oklch(0.556 0.01 286);
   --radius: 0.75rem;
-  --sidebar: oklch(1 0 0);
-  --sidebar-foreground: oklch(0 0 0);
-  --sidebar-primary: oklch(1 0 0);
-  --sidebar-primary-foreground: oklch(0 0 0);
-  --sidebar-accent: oklch(1 0 0);
-  --sidebar-accent-foreground: oklch(0 0 0);
-  --sidebar-border: oklch(1 0 0);
-  --sidebar-ring: oklch(1 0 0);
+
+  /* Glass tokens — classic */
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-sheen: rgba(255, 255, 255, 0.22);
+  --glass-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  --bg-sheen: rgba(180, 160, 120, 0.12);
+  --bg-gloss: rgba(150, 170, 210, 0.10);
+
+  --sidebar: oklch(0.985 0.002 75);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.955 0.002 75);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.908 0.004 75);
+  --sidebar-ring: oklch(0.556 0.01 286);
 }
 
+/* ═══════════════════════════════════════════════════
+   THEME: Night (Dark)  —  MoonStar icon
+   Deep navy, cool blue accents, futuristic
+   ═══════════════════════════════════════════════════ */
 .dark {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0 0 0);
-  --primary: oklch(1 0 0);
-  --primary-foreground: oklch(0 0 0);
-  --secondary: oklch(1 0 0);
-  --secondary-foreground: oklch(0 0 0);
-  --muted: oklch(1 0 0);
-  --muted-foreground: oklch(0 0 0);
-  --accent: oklch(1 0 0);
-  --accent-foreground: oklch(0 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(1 0 0);
-  --input: oklch(1 0 0);
-  --ring: oklch(1 0 0);
-  --chart-1: oklch(1 0 0);
-  --chart-2: oklch(1 0 0);
-  --chart-3: oklch(1 0 0);
-  --chart-4: oklch(1 0 0);
-  --chart-5: oklch(1 0 0);
-  --sidebar: oklch(1 0 0);
-  --sidebar-foreground: oklch(0 0 0);
-  --sidebar-primary: oklch(1 0 0);
-  --sidebar-primary-foreground: oklch(0 0 0);
-  --sidebar-accent: oklch(1 0 0);
-  --sidebar-accent-foreground: oklch(0 0 0);
-  --sidebar-border: oklch(1 0 0);
-  --sidebar-ring: oklch(1 0 0);
+  --background: oklch(0.2 0.03 265);
+  --foreground: oklch(0.93 0.007 260);
+  --card: oklch(0.24 0.028 265);
+  --card-foreground: oklch(0.93 0.007 260);
+  --popover: oklch(0.175 0.015 265);
+  --popover-foreground: oklch(0.93 0.007 260);
+  --primary: oklch(0.685 0.17 265);
+  --primary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.26 0.028 265);
+  --secondary-foreground: oklch(0.86 0.008 260);
+  --muted: oklch(0.26 0.025 265);
+  --muted-foreground: oklch(0.58 0.025 260);
+  --accent: oklch(0.3 0.03 265);
+  --accent-foreground: oklch(0.93 0.007 260);
+  --destructive: oklch(0.63 0.24 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.32 0.025 265);
+  --input: oklch(0.26 0.025 265);
+  --ring: oklch(0.685 0.17 265);
+
+  /* Glass tokens — night */
+  --glass-bg: rgba(28, 38, 72, 0.6);
+  --glass-border: rgba(80, 120, 255, 0.12);
+  --glass-sheen: rgba(120, 170, 255, 0.08);
+  --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.35);
+  --bg-sheen: rgba(100, 160, 255, 0.14);
+  --bg-gloss: rgba(60, 100, 220, 0.06);
+
+  --sidebar: oklch(0.2 0.03 265);
+  --sidebar-foreground: oklch(0.93 0.007 260);
+  --sidebar-primary: oklch(0.685 0.17 265);
+  --sidebar-primary-foreground: oklch(0.98 0 0);
+  --sidebar-accent: oklch(0.265 0.025 265);
+  --sidebar-accent-foreground: oklch(0.93 0.007 260);
+  --sidebar-border: oklch(0.32 0.025 265);
+  --sidebar-ring: oklch(0.685 0.17 265);
+}
+
+/* ═══════════════════════════════════════════════════
+   THEME: Vivid (High Contrast)  —  Sparkles icon
+   Pure black, neon emerald accents, maximum readability
+   ═══════════════════════════════════════════════════ */
+.vivid {
+  --background: oklch(0.065 0 0);
+  --foreground: oklch(0.98 0 0);
+  --card: oklch(0.11 0.01 170);
+  --card-foreground: oklch(0.98 0 0);
+  --popover: oklch(0.11 0.01 170);
+  --popover-foreground: oklch(0.98 0 0);
+  --primary: oklch(0.74 0.18 168);
+  --primary-foreground: oklch(0.065 0 0);
+  --secondary: oklch(0.155 0.015 170);
+  --secondary-foreground: oklch(0.95 0 0);
+  --muted: oklch(0.175 0.01 170);
+  --muted-foreground: oklch(0.65 0.012 0);
+  --accent: oklch(0.74 0.18 168);
+  --accent-foreground: oklch(0.065 0 0);
+  --destructive: oklch(0.68 0.27 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.3 0.04 170);
+  --input: oklch(0.155 0.015 170);
+  --ring: oklch(0.74 0.18 168);
+
+  /* Glass tokens — vivid */
+  --glass-bg: rgba(0, 0, 0, 0.6);
+  --glass-border: rgba(16, 185, 129, 0.22);
+  --glass-sheen: rgba(16, 185, 129, 0.1);
+  --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  --bg-sheen: rgba(255, 255, 255, 0.14);
+  --bg-gloss: rgba(255, 255, 255, 0.06);
+
+  --sidebar: oklch(0.065 0 0);
+  --sidebar-foreground: oklch(0.98 0 0);
+  --sidebar-primary: oklch(0.74 0.18 168);
+  --sidebar-primary-foreground: oklch(0.065 0 0);
+  --sidebar-accent: oklch(0.155 0.015 170);
+  --sidebar-accent-foreground: oklch(0.95 0 0);
+  --sidebar-border: oklch(0.3 0.04 170);
+  --sidebar-ring: oklch(0.74 0.18 168);
 }
 
 @theme inline {
@@ -96,11 +156,6 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -119,12 +174,97 @@
   * {
     @apply border-border outline-ring/50;
   }
+  :root {
+    color-scheme: light;
+  }
+  .dark,
+  .vivid {
+    color-scheme: dark;
+  }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
+    position: relative;
+    isolation: isolate;
+    background: transparent;
+    transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                background-image 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                backdrop-filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
   html, body {
     overflow-x: hidden;
   }
+}
+
+/* ═══════════════════════════════════════════════════
+   Background liquid-glass — sweeping sheen + gloss
+   Two layers: ::before = main sheen, ::after = soft gloss
+   ═══════════════════════════════════════════════════ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+body::before {
+  z-index: -1;
+  background:
+    linear-gradient(var(--glass-bg), var(--glass-bg)),
+    linear-gradient(
+      110deg,
+      transparent 15%,
+      var(--bg-sheen) 35%,
+      var(--bg-sheen) 50%,
+      transparent 70%
+    ),
+    linear-gradient(
+      160deg,
+      var(--bg-gloss) 0%,
+      transparent 40%
+    ),
+    linear-gradient(
+      340deg,
+      var(--bg-gloss) 0%,
+      transparent 35%
+    );
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(48px) saturate(1.45);
+  -webkit-backdrop-filter: blur(48px) saturate(1.45);
+}
+
+/* Color scene behind the frosted body glass */
+html:not(.dark):not(.vivid) {
+  background-color: oklch(0.84 0.025 265);
+  background-image:
+    radial-gradient(80% 70% at 0% 0%, rgba(255, 106, 70, 0.62), transparent 65%),
+    radial-gradient(74% 62% at 100% 0%, rgba(70, 136, 255, 0.55), transparent 64%),
+    radial-gradient(62% 58% at 50% 0%, rgba(255, 190, 70, 0.36), transparent 62%),
+    radial-gradient(88% 72% at 50% 50%, rgba(186, 96, 255, 0.28), transparent 68%),
+    radial-gradient(70% 60% at 22% 76%, rgba(0, 206, 224, 0.36), transparent 62%),
+    radial-gradient(64% 54% at 80% 84%, rgba(255, 120, 182, 0.32), transparent 60%);
+}
+
+html.dark {
+  background-color: oklch(0.11 0.05 265);
+  background-image:
+    radial-gradient(82% 72% at 0% 0%, rgba(76, 58, 255, 0.64), transparent 66%),
+    radial-gradient(70% 62% at 100% 0%, rgba(0, 196, 255, 0.52), transparent 64%),
+    radial-gradient(60% 56% at 52% 0%, rgba(212, 62, 255, 0.35), transparent 62%),
+    radial-gradient(90% 72% at 50% 52%, rgba(0, 108, 208, 0.26), transparent 68%),
+    radial-gradient(66% 58% at 20% 74%, rgba(0, 226, 184, 0.32), transparent 62%),
+    radial-gradient(62% 52% at 82% 82%, rgba(255, 72, 140, 0.24), transparent 60%);
+}
+
+html.vivid {
+  background-color: oklch(0.03 0 0);
+  background-image:
+    radial-gradient(84% 72% at 0% 0%, rgba(12, 255, 168, 0.72), transparent 66%),
+    radial-gradient(70% 62% at 100% 0%, rgba(255, 235, 58, 0.5), transparent 64%),
+    radial-gradient(62% 56% at 50% 0%, rgba(0, 204, 255, 0.46), transparent 62%),
+    radial-gradient(90% 72% at 50% 52%, rgba(255, 64, 186, 0.3), transparent 68%),
+    radial-gradient(68% 58% at 20% 74%, rgba(216, 68, 255, 0.38), transparent 62%),
+    radial-gradient(64% 54% at 82% 84%, rgba(16, 255, 205, 0.42), transparent 60%);
 }
 
 .scrollbar-hide {
@@ -140,4 +280,114 @@
 .perspective-1000 {
   perspective: 1000px;
   transform-style: preserve-3d;
+}
+
+/* ═══════════════════════════════════════════════════
+   Always-dark glass — for overlays on images (hero, etc.)
+   These don't change with theme.
+   ═══════════════════════════════════════════════════ */
+.glass {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ═══════════════════════════════════════════════════
+   Liquid Glass — theme-aware with animated sheen sweep
+   Apply to sticky bars, cards, floating elements
+   ═══════════════════════════════════════════════════ */
+.liquid-glass {
+  position: relative;
+  background: var(--glass-bg);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.liquid-glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    105deg,
+    transparent 38%,
+    var(--glass-sheen) 50%,
+    transparent 62%
+  );
+  background-size: 250% 100%;
+  animation: glass-sheen-sweep 8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Direct children sit above the sheen */
+.liquid-glass > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes glass-sheen-sweep {
+  0%, 100% { background-position: 200% 0; }
+  50% { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .liquid-glass::after {
+    animation: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   Utility animations
+   ═══════════════════════════════════════════════════ */
+
+/* Gentle floating motion for hero logo */
+@keyframes logo-float {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-6px) scale(1.01); }
+}
+
+.logo-float {
+  animation: logo-float 3.8s ease-in-out infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-float { animation: none; }
+}
+
+/* Context pill online indicator */
+@keyframes context-dot-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.4; }
+}
+
+.context-dot-pulse {
+  animation: context-dot-pulse 2s ease-in-out infinite;
+}
+
+/* Gentle periodic bell motion */
+@keyframes bell-wobble {
+  0%, 92%, 100% { transform: rotate(0deg); }
+  94% { transform: rotate(-5deg); }
+  96% { transform: rotate(5deg); }
+  98% { transform: rotate(0deg); }
+}
+
+.bell-wobble {
+  animation: bell-wobble 8s ease-in-out infinite;
+  transform-origin: top center;
 }

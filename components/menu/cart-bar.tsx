@@ -2,13 +2,14 @@
 
 import React from "react";
 
-import { useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { ShoppingCart, X, Trash2, Minus, Plus } from "lucide-react";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
+  SheetTitle,
 } from "@/components/ui/sheet";
 import type { CartItem, MenuItem } from "@/lib/menu-data";
 import { restaurant } from "@/lib/menu-data";
@@ -21,6 +22,8 @@ interface CartBarProps {
   onAddToCart: (item: MenuItem) => void;
   onRemoveFromCart: (itemId: string) => void;
   onItemClick: (item: CartItem, menuItem: MenuItem) => void;
+  hideTrigger?: boolean;
+  externalOpenSignal?: number;
 }
 
 // Helper function to get customization display parts
@@ -51,6 +54,8 @@ export function CartBar({
   onAddToCart,
   onRemoveFromCart,
   onItemClick,
+  hideTrigger = false,
+  externalOpenSignal,
 }: CartBarProps) {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
@@ -64,6 +69,12 @@ export function CartBar({
   const subtotal = total;
   const tax = Math.round(subtotal * 0.1 * 100) / 100;
   const cartTotal = subtotal + tax;
+
+  useEffect(() => {
+    if (externalOpenSignal === undefined) return;
+    if (externalOpenSignal <= 0) return;
+    setIsOpen(true);
+  }, [externalOpenSignal]);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartY.current = e.touches[0].clientY;
@@ -112,27 +123,28 @@ export function CartBar({
   if (items.length === 0) {
     return (
       <>
-        {/* Floating Cart Button */}
-        <div className="fixed bottom-4 left-4 right-4 z-50">
-          <button
-            type="button"
-            className="flex w-full items-center justify-between rounded-full bg-black p-4 text-white shadow-lg hover:bg-gray-900 transition-colors"
-            onClick={() => setIsOpen(true)}
-          >
-            <div className="flex items-center gap-2">
-              <ShoppingCart className="h-5 w-5" />
-              <span className="font-semibold">View Cart</span>
-            </div>
-            <span className="font-semibold">Empty</span>
-          </button>
-        </div>
+        {!hideTrigger && (
+          <div className="fixed bottom-4 left-4 right-4 z-50">
+            <button
+              type="button"
+              className="flex w-full items-center justify-between rounded-full bg-black p-4 text-white shadow-lg hover:bg-gray-900 transition-colors"
+              onClick={() => setIsOpen(true)}
+            >
+              <div className="flex items-center gap-2">
+                <ShoppingCart className="h-5 w-5" />
+                <span className="font-semibold">View Cart</span>
+              </div>
+              <span className="font-semibold">Empty</span>
+            </button>
+          </div>
+        )}
 
         {/* Empty Cart Modal */}
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetContent side="bottom" className="rounded-t-2xl max-h-[90vh] overflow-y-auto px-4">
             <SheetHeader className="flex flex-row items-center justify-between pb-4 px-0">
               <ShoppingCart className="h-6 w-6 text-foreground" />
-              <h2 className="text-xl font-bold flex-1 text-center">Your Cart</h2>
+              <SheetTitle className="text-xl font-bold flex-1 text-center">Your Cart</SheetTitle>
               <button
                 onClick={() => setIsOpen(false)}
                 className="text-muted-foreground hover:text-foreground"
@@ -161,23 +173,24 @@ export function CartBar({
 
   return (
     <>
-      {/* Floating Cart Button */}
-      <div className="fixed bottom-4 left-4 right-4 z-50">
-        <button
-          type="button"
-          className="flex w-full items-center justify-between rounded-full bg-black p-4 text-white shadow-lg hover:bg-gray-900 transition-colors"
-          onClick={() => setIsOpen(true)}
-        >
-          <div className="flex items-center gap-2">
-            <ShoppingCart className="h-5 w-5" />
-            <span className="font-semibold">View Cart</span>
-            <span className="font-semibold">
-              <span className="text-xl">·</span> {itemCount}
-            </span>
-          </div>
-          <span className="font-bold text-lg">€{cartTotal.toFixed(2)}</span>
-        </button>
-      </div>
+      {!hideTrigger && (
+        <div className="fixed bottom-4 left-4 right-4 z-50">
+          <button
+            type="button"
+            className="flex w-full items-center justify-between rounded-full bg-black p-4 text-white shadow-lg hover:bg-gray-900 transition-colors"
+            onClick={() => setIsOpen(true)}
+          >
+            <div className="flex items-center gap-2">
+              <ShoppingCart className="h-5 w-5" />
+              <span className="font-semibold">View Cart</span>
+              <span className="font-semibold">
+                <span className="text-xl">·</span> {itemCount}
+              </span>
+            </div>
+            <span className="font-bold text-lg">€{cartTotal.toFixed(2)}</span>
+          </button>
+        </div>
+      )}
 
       {/* Cart Bottom Sheet */}
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -196,7 +209,7 @@ export function CartBar({
             {/* Header */}
             <SheetHeader className="flex flex-row items-center justify-between pb-4 px-0">
               <ShoppingCart className="h-6 w-6 text-foreground" />
-              <h2 className="text-xl font-bold flex-1 text-center">Your Cart</h2>
+              <SheetTitle className="text-xl font-bold flex-1 text-center">Your Cart</SheetTitle>
               <button
                 onClick={() => setIsOpen(false)}
                 className="text-muted-foreground hover:text-foreground"
@@ -365,6 +378,9 @@ export function CartBar({
       {/* Delete Confirmation Sheet */}
       <Sheet open={!!itemToDelete} onOpenChange={(open) => !open && setItemToDelete(null)}>
         <SheetContent side="bottom" className="rounded-t-2xl px-4 [&>button]:hidden">
+          <SheetHeader className="sr-only">
+            <SheetTitle>Remove item</SheetTitle>
+          </SheetHeader>
           <div className="py-4">
             {(() => {
               const itemBeingDeleted = items.find((item) => item.id === itemToDelete);
