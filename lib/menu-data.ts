@@ -1,6 +1,6 @@
 export const restaurant = {
   name: "Pizza Palace",
-  description: "Authentic Italian pizza made with fresh ingredients since 1985",
+  description: "Authentic, fresh Italian pizza since 1985.",
   bannerUrl: "/banner.jpg",
   logoUrl: "/logo.jpg",
   address: "123 Main Street, Brussels",

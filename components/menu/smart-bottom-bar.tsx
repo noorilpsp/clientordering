@@ -139,7 +139,7 @@ export function SmartBottomBar({
       {trayOpen && (
         <button
           type="button"
-          className="fixed inset-0 z-[calc(var(--z-bottom-bar)+1)] bg-black/30"
+          className="fixed inset-0 z-[49] bg-black/35"
           onClick={() => setTrayOpen(false)}
           aria-label="Close actions tray"
         />
@@ -150,7 +150,13 @@ export function SmartBottomBar({
         style={{ position: "fixed", left: 0, right: 0, bottom: 0 }}
       >
         <div className="pointer-events-auto mx-auto w-full max-w-md pb-[env(safe-area-inset-bottom)]">
-          <div className="liquid-glass rounded-t-2xl border-t border-border/70 bg-card/85 shadow-lg shadow-black/30 backdrop-blur-xl">
+          <div
+            className={`liquid-glass rounded-t-2xl border-t backdrop-blur-xl ${
+              trayOpen
+                ? "border-border/90 bg-card/95 shadow-2xl shadow-black/45"
+                : "border-border/70 bg-card/85 shadow-lg shadow-black/30"
+            }`}
+          >
             {trayOpen && (
               <div className="animate-in slide-in-from-bottom-6 fade-in-0 max-h-[360px] overflow-y-auto px-2 pb-2 pt-2 duration-300">
                 {orderType === "dine-in" ? (
