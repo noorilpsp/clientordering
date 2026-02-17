@@ -29,6 +29,14 @@
   --input: oklch(0.908 0.004 75);
   --ring: oklch(0.556 0.01 286);
   --radius: 0.75rem;
+  --z-base: 0;
+  --z-hero: 20;
+  --z-sticky: 40;
+  --z-bottom-bar: 50;
+  --z-toast: 60;
+  --z-popover: 80;
+  --z-modal-backdrop: 110;
+  --z-modal-content: 111;
 
   /* Glass tokens — classic */
   --glass-bg: rgba(255, 255, 255, 0.6);

@@ -111,7 +111,7 @@ export function ContextPill({
     <div
       className={cn(
         "relative",
-        expanded ? "z-[70]" : "z-30",
+        expanded ? "z-[var(--z-popover)]" : "z-[var(--z-hero)]",
         compact ? "inline-block" : "my-3 px-4",
         className
       )}
@@ -120,7 +120,7 @@ export function ContextPill({
         <button
           type="button"
           aria-label="Close context panel"
-          className="fixed inset-0 z-20 bg-black/20"
+          className="fixed inset-0 z-[calc(var(--z-popover)-1)] bg-black/20"
           onClick={() => {
             setExpanded(false);
             setEditingTable(false);
@@ -140,7 +140,7 @@ export function ContextPill({
           }
         }}
         className={cn(
-          "relative z-30 cursor-pointer rounded-xl border backdrop-blur-md transition-all duration-300 liquid-glass",
+          "relative z-[var(--z-hero)] cursor-pointer rounded-xl border backdrop-blur-md transition-all duration-300 liquid-glass",
           compact && "w-fit",
           expanded
             ? "border-border/60 bg-card/70 shadow-xl shadow-black/30"
@@ -223,7 +223,7 @@ export function ContextPill({
       {expanded && (
         <div
           className={cn(
-            "absolute top-full z-[80] mt-2 animate-in slide-in-from-top-2 fade-in-0 rounded-xl border border-border/60 bg-card/85 px-3 pb-3 pt-1 shadow-xl shadow-black/35 backdrop-blur-md duration-300 liquid-glass",
+            "absolute top-full z-[var(--z-popover)] mt-2 animate-in slide-in-from-top-2 fade-in-0 rounded-xl border border-border/60 bg-card/85 px-3 pb-3 pt-1 shadow-xl shadow-black/35 backdrop-blur-md duration-300 liquid-glass",
             compact ? "right-0 w-[min(92vw,19rem)]" : "left-4 right-4"
           )}
         >

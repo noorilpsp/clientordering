@@ -74,12 +74,12 @@ export function FeaturedSection({
 
                 {/* Add/Quantity buttons */}
                 {item.status === "live" && (
-                  <div className="absolute bottom-1 right-1 z-10">
+                  <div className="absolute bottom-1 right-1">
                     {!quantity ? (
                       <button
                         type="button"
                         onClick={(e) => handleAddClick(e, item)}
-                        className={`flex h-9 w-9 items-center justify-center rounded-full bg-white text-foreground shadow-md hover:bg-gray-100 transition-all z-10 ${
+                        className={`flex h-9 w-9 items-center justify-center rounded-full bg-white text-foreground shadow-md hover:bg-gray-100 transition-all ${
                           isPressed ? "scale-125" : "scale-100"
                         }`}
                         style={{
@@ -91,7 +91,7 @@ export function FeaturedSection({
                         <Plus className="h-4 w-4" />
                       </button>
                     ) : (
-                      <div className="flex items-center gap-2 bg-white rounded-full shadow-md px-2 py-1 z-10">
+                      <div className="flex items-center gap-2 bg-white rounded-full shadow-md px-2 py-1">
                         <button
                           type="button"
                           onClick={(e) => {

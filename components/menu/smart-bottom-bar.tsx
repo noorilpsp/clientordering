@@ -139,14 +139,14 @@ export function SmartBottomBar({
       {trayOpen && (
         <button
           type="button"
-          className="fixed inset-0 z-[110] bg-black/30"
+          className="fixed inset-0 z-[calc(var(--z-bottom-bar)+1)] bg-black/30"
           onClick={() => setTrayOpen(false)}
           aria-label="Close actions tray"
         />
       )}
 
       <div
-        className="pointer-events-none fixed inset-x-0 bottom-0 z-[2147483000]"
+        className="pointer-events-none fixed inset-x-0 bottom-0 z-[var(--z-bottom-bar)]"
         style={{ position: "fixed", left: 0, right: 0, bottom: 0 }}
       >
         <div className="pointer-events-auto mx-auto w-full max-w-md pb-[env(safe-area-inset-bottom)]">

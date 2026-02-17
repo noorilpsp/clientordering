@@ -3,6 +3,7 @@
 import React from "react";
 
 import { useState, useMemo, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { X, Minus, Plus, GripHorizontal, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -32,9 +33,15 @@ export function ItemDetailModal({
   const [quantity, setQuantity] = useState(1);
   const [specialInstructions, setSpecialInstructions] = useState("");
   const [dragY, setDragY] = useState(0);
+  const [mounted, setMounted] = useState(false);
   const touchStartY = useRef(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
+
+  // Initialize with cart item customizations if available
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Initialize with cart item customizations if available
   useEffect(() => {
@@ -203,7 +210,7 @@ export function ItemDetailModal({
     });
   };
 
-  if (!open) return null;
+  if (!open || !mounted) return null;
 
   const handleAddToCart = () => {
     const cartItem = {
@@ -216,16 +223,16 @@ export function ItemDetailModal({
     onOpenChange(false);
   };
 
-  return (
+  const modal = (
     <>
       {/* Backdrop */}
       <div
-        className="fixed inset-0 z-40 bg-black/50"
+        className="fixed inset-0 z-[1000] bg-black/50"
         onClick={() => onOpenChange(false)}
       />
 
       {/* Bottom Sheet */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 flex items-end justify-center animate-in slide-in-from-bottom-80 duration-300">
+      <div className="fixed bottom-0 left-0 right-0 z-[1001] flex items-end justify-center animate-in slide-in-from-bottom-80 duration-300">
         <div 
           ref={sheetRef}
           className="w-full max-w-md rounded-t-3xl bg-white shadow-2xl h-[98vh] overflow-hidden flex flex-col relative will-change-transform"
@@ -650,4 +657,6 @@ export function ItemDetailModal({
       </div>
     </>
   );
+
+  return createPortal(modal, document.body);
 }

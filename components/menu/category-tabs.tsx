@@ -32,9 +32,8 @@ export function CategoryTabs({
     if (isSearchOpen) return;
     if (activeBtnRef.current && tabsContainerRef.current) {
       const button = activeBtnRef.current;
-      const container = tabsContainerRef.current;
       setPillStyle({
-        left: button.offsetLeft - container.scrollLeft,
+        left: button.offsetLeft,
         width: button.offsetWidth,
       });
     }
@@ -48,7 +47,7 @@ export function CategoryTabs({
     const handleScroll = () => {
       if (activeBtnRef.current) {
         setPillStyle({
-          left: activeBtnRef.current.offsetLeft - container.scrollLeft,
+          left: activeBtnRef.current.offsetLeft,
           width: activeBtnRef.current.offsetWidth,
         });
       }
@@ -109,7 +108,7 @@ export function CategoryTabs({
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
             <div
-              className="absolute top-0 h-full rounded-xl bg-primary transition-all pointer-events-none"
+              className="absolute top-0 h-full rounded-xl bg-black/90 transition-all pointer-events-none"
               style={{
                 left: `${pillStyle.left}px`,
                 width: `${pillStyle.width}px`,
@@ -127,7 +126,7 @@ export function CategoryTabs({
                 data-category-id={category.id}
                 className={`relative z-10 flex shrink-0 items-center gap-1.5 rounded-xl px-3.5 py-2 text-sm transition-colors duration-250 ${
                   activeCategory === category.id
-                    ? "font-bold text-primary-foreground"
+                    ? "font-bold text-white"
                     : "text-muted-foreground hover:text-foreground font-medium"
                 }`}
               >

@@ -120,7 +120,7 @@ export function MenuItemCard({
                 <button
                   type="button"
                   onClick={handleAddClick}
-                  className={`absolute bottom-1 right-1 flex h-9 w-9 items-center justify-center rounded-full bg-white text-foreground shadow-md hover:bg-gray-100 transition-all z-10 ${
+                  className={`absolute bottom-1 right-1 flex h-9 w-9 items-center justify-center rounded-full bg-white text-foreground shadow-md hover:bg-gray-100 transition-all ${
                     isPressed ? "scale-125" : "scale-100"
                   }`}
                   style={{
@@ -132,7 +132,7 @@ export function MenuItemCard({
                   <Plus className="h-4 w-4" />
                 </button>
               ) : (
-                <div className="absolute bottom-1 right-1 flex items-center gap-1.5 bg-white rounded-full shadow-md px-2 py-1 z-10">
+                <div className="absolute bottom-1 right-1 flex items-center gap-1.5 bg-white rounded-full shadow-md px-2 py-1">
                   <button
                     type="button"
                     onClick={(e) => {

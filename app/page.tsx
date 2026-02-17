@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { HeroSection } from "@/components/menu/hero-section";
 import { CategoryTabs } from "@/components/menu/category-tabs";
 import { MenuItemCard } from "@/components/menu/menu-item-card";
@@ -102,50 +102,6 @@ export default function MenuPage() {
 
   useEffect(() => {
     if (isSearchOpen) return;
-    const elements = Object.values(categoryRefs.current).filter(
-      (el) => el !== null
-    ) as HTMLDivElement[];
-    if (elements.length === 0) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        let activeEntry = null;
-
-        for (const entry of entries) {
-          if (entry.isIntersecting && entry.boundingClientRect.top <= 150) {
-            if (!activeEntry || entry.boundingClientRect.top > activeEntry.boundingClientRect.top) {
-              activeEntry = entry;
-            }
-          }
-        }
-
-        if (!activeEntry) {
-          let mostVisible = entries[0];
-          for (const entry of entries) {
-            if (entry.intersectionRatio > mostVisible.intersectionRatio) {
-              mostVisible = entry;
-            }
-          }
-          activeEntry = mostVisible;
-        }
-
-        const categoryId = activeEntry.target.getAttribute("data-category-id");
-        if (categoryId) {
-          setActiveCategory(categoryId);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    elements.forEach((el) => {
-      observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, [isSearchOpen]);
-
-  useEffect(() => {
-    if (isSearchOpen) return;
     if (!tabsContainerRef.current) return;
 
     const tabBtn = tabsContainerRef.current.querySelector(
@@ -164,10 +120,12 @@ export default function MenuPage() {
     if (isSearchOpen) return;
     const element = categoryRefs.current[categoryId];
     if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      const topOffset = isTabsSticky ? 70 : 126;
+      const targetY = element.getBoundingClientRect().top + window.scrollY - topOffset;
+      window.scrollTo({ top: Math.max(targetY, 0), behavior: "smooth" });
       setActiveCategory(categoryId);
     }
-  }, [isSearchOpen]);
+  }, [isSearchOpen, isTabsSticky]);
 
   const handleAddToCart = useCallback((item: MenuItem | CartItem) => {
     setCart((prevCart) => {
@@ -194,15 +152,30 @@ export default function MenuPage() {
 
   const cartTotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const normalizedQuery = searchQuery.trim().toLowerCase();
-  const filteredMenuItems = menuItems.filter((item) => {
-    if (!normalizedQuery) return true;
-    const categoryName = categories.find((c) => c.id === item.categoryId)?.name ?? "";
-    const haystack = [item.name, item.description, categoryName, ...item.tags].join(" ").toLowerCase();
-    return haystack.includes(normalizedQuery);
-  });
-  const visibleCategories = categories.filter((category) =>
-    filteredMenuItems.some((item) => item.categoryId === category.id)
+  const filteredMenuItems = useMemo(
+    () =>
+      menuItems.filter((item) => {
+        if (!normalizedQuery) return true;
+        const categoryName = categories.find((c) => c.id === item.categoryId)?.name ?? "";
+        const haystack = [item.name, item.description, categoryName, ...item.tags].join(" ").toLowerCase();
+        return haystack.includes(normalizedQuery);
+      }),
+    [normalizedQuery]
   );
+  const visibleCategories = useMemo(
+    () =>
+      categories.filter((category) =>
+        filteredMenuItems.some((item) => item.categoryId === category.id)
+      ),
+    [filteredMenuItems]
+  );
+
+  useEffect(() => {
+    if (visibleCategories.length === 0) return;
+    if (!visibleCategories.some((category) => category.id === activeCategory)) {
+      setActiveCategory(visibleCategories[0].id);
+    }
+  }, [activeCategory, visibleCategories]);
 
   const handleRemoveFromCart = useCallback((itemId: string) => {
     setCart((prevCart) => {
@@ -217,6 +190,45 @@ export default function MenuPage() {
       return prevCart.filter((cartItem) => cartItem.id !== itemId);
     });
   }, []);
+
+  useEffect(() => {
+    if (isSearchOpen || visibleCategories.length === 0) return;
+
+    let frameId = 0;
+    const updateActiveCategoryFromScroll = () => {
+      if (frameId) return;
+
+      frameId = window.requestAnimationFrame(() => {
+        frameId = 0;
+
+        const anchorY = isTabsSticky ? 86 : 170;
+        let nextActiveId = visibleCategories[0].id;
+
+        for (const category of visibleCategories) {
+          const section = categoryRefs.current[category.id];
+          if (!section) continue;
+
+          if (section.getBoundingClientRect().top <= anchorY) {
+            nextActiveId = category.id;
+          } else {
+            break;
+          }
+        }
+
+        setActiveCategory((prev) => (prev === nextActiveId ? prev : nextActiveId));
+      });
+    };
+
+    updateActiveCategoryFromScroll();
+    window.addEventListener("scroll", updateActiveCategoryFromScroll, { passive: true });
+    window.addEventListener("resize", updateActiveCategoryFromScroll);
+
+    return () => {
+      window.removeEventListener("scroll", updateActiveCategoryFromScroll);
+      window.removeEventListener("resize", updateActiveCategoryFromScroll);
+      if (frameId) window.cancelAnimationFrame(frameId);
+    };
+  }, [isSearchOpen, isTabsSticky, visibleCategories]);
 
   useEffect(() => {
     const sentinel = tabsSentinelRef.current;
@@ -264,8 +276,8 @@ export default function MenuPage() {
       <div
         className={
           isTabsSticky
-            ? "fixed inset-x-0 top-0 z-[2000] isolate"
-            : "relative z-[120] isolate"
+            ? "fixed inset-x-0 top-0 z-[var(--z-sticky)] isolate"
+            : "relative z-[var(--z-hero)] isolate"
         }
       >
         <div className="pointer-events-auto">
@@ -390,7 +402,7 @@ export default function MenuPage() {
       />
 
       {toast && (
-        <div className="pointer-events-none fixed bottom-28 left-1/2 z-[80] w-full max-w-[320px] -translate-x-1/2 px-3">
+        <div className="pointer-events-none fixed bottom-28 left-1/2 z-[var(--z-toast)] w-full max-w-[320px] -translate-x-1/2 px-3">
           <div
             key={toast.id}
             role="status"
