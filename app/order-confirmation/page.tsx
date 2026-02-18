@@ -265,7 +265,7 @@ export default function OrderConfirmationPage() {
 
         <section className="liquid-glass rounded-2xl border border-white/20 bg-card/72 p-4 shadow-[0_16px_30px_rgba(0,0,0,0.2)]">
           <div className="mb-2 flex items-center justify-between">
-            <p className="text-base font-semibold text-foreground">Order Summary</p>
+            <p className="text-base font-semibold text-foreground">Order Summary.</p>
             <button
               type="button"
               onClick={() => setExpandedSummary((prev) => !prev)}
