@@ -99,12 +99,12 @@ export function PickupSection({
       </div>
 
       {/* Restaurant Info */}
-      <div className="mb-5 py-4 px-0 bg-card rounded-lg border border-border">
+      <div className="mb-5 rounded-lg border border-border bg-card px-0 py-3">
         {/* Name and Address */}
         <div className="flex gap-3">
-          <Store className="w-6 h-6 flex-shrink-0 text-foreground self-center" />
+          <Store className="h-5 w-5 flex-shrink-0 self-center text-foreground" />
           <div className="flex-1">
-            <h3 className="text-lg text-foreground font-medium">
+            <h3 className="text-base font-medium text-foreground">
               {restaurant.name}
             </h3>
             <p className="text-sm text-muted-foreground">
@@ -114,13 +114,13 @@ export function PickupSection({
         </div>
 
         {/* Separator */}
-        <Separator className="mt-5 mb-5 ml-9 bg-gray-200 dark:bg-gray-700" />
+        <Separator className="mb-4 ml-8 mt-4 bg-gray-200 dark:bg-gray-700" />
 
         {/* Distance */}
         <div className="flex gap-3">
-          <WalkingPersonLottie className="w-12 h-12 flex-shrink-0 text-foreground self-center -ml-4" />
+          <WalkingPersonLottie className="-ml-3 h-10 w-10 flex-shrink-0 self-center text-foreground" />
           <div className="flex-1">
-            <h3 className="text-lg text-foreground font-medium">
+            <h3 className="text-base font-medium text-foreground">
               Distance
             </h3>
             <p className="text-sm text-muted-foreground">
@@ -130,15 +130,15 @@ export function PickupSection({
         </div>
 
         {/* Separator */}
-        <Separator className="mt-5 mb-0 ml-9 bg-gray-200 dark:bg-gray-700" />
+        <Separator className="mb-0 ml-8 mt-4 bg-gray-200 dark:bg-gray-700" />
       </div>
 
       {/* Pickup Time */}
-      <div className="mb-0 -mt-8 pt-4 pb-0 px-0 bg-card rounded-lg border border-border space-y-3">
+      <div className="mb-0 -mt-8 rounded-lg border border-border bg-card px-0 pb-0 pt-3 space-y-2.5">
         <div className="flex gap-3 items-center">
-          <Clock className="w-6 h-6 flex-shrink-0 text-foreground" />
+          <Clock className="h-5 w-5 flex-shrink-0 text-foreground" />
           <div className="flex-1">
-            <h3 className="text-lg text-foreground font-medium">
+            <h3 className="text-base font-medium text-foreground">
               Pickup Time
             </h3>
           </div>
@@ -159,7 +159,7 @@ export function PickupSection({
                 onTimeChange();
               }
             }}
-            className={`flex-1 p-4 rounded-lg border-2 transition-colors bg-transparent ${
+            className={`flex-1 rounded-md border-2 px-2 py-3 transition-colors bg-transparent ${
               timeMode === "standard"
                 ? "text-foreground border-foreground"
                 : "text-foreground border-border hover:border-foreground shadow-md"
@@ -183,7 +183,7 @@ export function PickupSection({
                 onScheduleClick();
               }
             }}
-            className={`flex-1 p-4 rounded-lg border-2 transition-colors bg-transparent cursor-pointer ${
+            className={`flex-1 rounded-md border-2 px-2 py-3 transition-colors bg-transparent cursor-pointer ${
               timeMode === "schedule"
                 ? "text-foreground border-foreground"
                 : "text-foreground border-border hover:border-foreground shadow-md"
@@ -250,7 +250,7 @@ export function PickupSection({
                       key={day.value}
                       type="button"
                       onClick={() => onDayChange(day.value)}
-                      className={`flex-shrink-0 p-4 rounded-lg border-2 transition-colors bg-transparent cursor-pointer relative ${
+                      className={`relative flex-shrink-0 rounded-md border-2 px-3 py-2.5 transition-colors bg-transparent cursor-pointer ${
                         selectedDay === day.value
                           ? "text-foreground border-foreground"
                           : "text-foreground border-border hover:border-foreground shadow-md"

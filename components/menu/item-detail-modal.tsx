@@ -301,24 +301,24 @@ export function ItemDetailModal({
                 {item?.tags && item.tags.length > 0 && (
                   <div className="flex gap-1">
                     {item.tags.map((tag: string) => {
-                      let bgColor = "bg-gray-100";
-                      let textColor = "text-gray-700";
+                      let toneClass =
+                        "border-zinc-400/35 bg-zinc-500/15 text-zinc-800 dark:text-zinc-200 vivid:text-zinc-100";
 
                       if (tag === "Vegetarian") {
-                        bgColor = "bg-green-100";
-                        textColor = "text-green-700";
+                        toneClass =
+                          "border-emerald-400/45 bg-emerald-500/20 text-emerald-800 dark:text-emerald-200 vivid:text-emerald-100";
                       } else if (tag === "Spicy") {
-                        bgColor = "bg-red-100";
-                        textColor = "text-red-700";
+                        toneClass =
+                          "border-rose-400/45 bg-rose-500/20 text-rose-800 dark:text-rose-200 vivid:text-rose-100";
                       } else if (tag === "Gluten-Free") {
-                        bgColor = "bg-blue-100";
-                        textColor = "text-blue-700";
+                        toneClass =
+                          "border-sky-400/45 bg-sky-500/20 text-sky-800 dark:text-sky-200 vivid:text-sky-100";
                       }
 
                       return (
                         <span
                           key={tag}
-                          className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${bgColor} ${textColor}`}
+                          className={`sheen-overlay relative inline-flex rounded-full border px-2 py-0.5 text-xs font-medium backdrop-blur-md ring-1 ring-white/10 ${toneClass}`}
                         >
                           {tag}
                         </span>

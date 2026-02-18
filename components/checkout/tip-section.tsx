@@ -31,9 +31,9 @@ export function TipSection({
     <div className="mb-0">
       <h2 className="text-lg font-bold text-foreground mb-3">Add a Tip</h2>
 
-      <div className="mt-0 space-y-4">
+      <div className="mt-0 space-y-3">
         {/* Percentage Options */}
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-2">
           {["10", "15", "20"].map((percent) => {
             const amount = getTipAmount(percent as "10" | "15" | "20");
             const isSelected = tipOption === percent;
@@ -45,7 +45,7 @@ export function TipSection({
                   onTipOptionChange(percent as TipOption);
                   onCustomTipChange("");
                 }}
-                className={`p-4 rounded-lg border-2 transition-colors bg-transparent ${
+                className={`rounded-md border-2 px-2 py-3 transition-colors bg-transparent ${
                   isSelected
                     ? "text-foreground border-foreground"
                     : "text-foreground border-border hover:border-foreground shadow-md"
@@ -63,14 +63,14 @@ export function TipSection({
         </div>
 
         {/* None and Custom */}
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-2">
           <button
             type="button"
             onClick={() => {
               onTipOptionChange("none");
               onCustomTipChange("");
             }}
-            className={`p-4 rounded-lg border-2 transition-colors bg-transparent ${
+            className={`rounded-md border-2 px-2 py-3 transition-colors bg-transparent ${
               tipOption === "none"
                 ? "text-foreground border-foreground"
                 : "text-foreground border-border hover:border-foreground shadow-md"
@@ -93,7 +93,7 @@ export function TipSection({
                 tipOption === "custom"
                   ? "border-foreground border-2"
                   : "border-border border-2"
-              }`}
+              } h-11 rounded-md`}
               min="0"
               step="0.01"
             />
@@ -102,7 +102,7 @@ export function TipSection({
       </div>
 
       {/* Thick Separator - Full width */}
-      <div className="h-0.5 bg-gray-200 mt-6 mb-6 -mx-4" />
+      <div className="h-0.5 bg-gray-200 mt-4 mb-4 -mx-4" />
     </div>
   );
 }

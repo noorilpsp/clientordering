@@ -32,15 +32,15 @@ export function DineInSection({
 
   return (
     <>
-      <div className="mb-5 py-4 px-0 bg-card rounded-lg border border-border">
+      <div className="mb-5 rounded-lg border border-border bg-card px-0 py-3">
         <button
           type="button"
           onClick={handleTableClick}
           className="flex gap-3 w-full items-center justify-center cursor-pointer"
         >
-          <UtensilsCrossed className="w-6 h-6 flex-shrink-0 text-foreground self-center" />
+          <UtensilsCrossed className="h-5 w-5 flex-shrink-0 self-center text-foreground" />
           <div className="text-center">
-            <h3 className="text-lg text-foreground font-medium">
+            <h3 className="text-base font-medium text-foreground">
               Table {tableNumber}
             </h3>
           </div>

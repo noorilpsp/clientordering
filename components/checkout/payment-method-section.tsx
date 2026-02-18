@@ -31,9 +31,9 @@ export function PaymentMethodSection({
     <div className="mb-5">
       <h2 className="text-lg font-bold text-foreground mb-3">Payment Method</h2>
 
-      <div className="mt-0 space-y-4">
+      <div className="mt-0 space-y-3">
         <RadioGroup value={selectedMethod} onValueChange={onMethodChange}>
-        <div className="space-y-3">
+        <div className="space-y-2">
           {methods.map((method) => {
             const Icon = method.icon;
             const isSelected = selectedMethod === method.id;
@@ -41,13 +41,13 @@ export function PaymentMethodSection({
               <label
                 key={method.id}
                 htmlFor={method.id}
-                className={`flex items-center gap-3 p-4 rounded-lg border-2 transition-colors bg-transparent cursor-pointer ${
+                className={`flex items-center gap-2.5 rounded-md border-2 px-3 py-2.5 transition-colors bg-transparent cursor-pointer ${
                   isSelected
                     ? "text-foreground border-foreground"
                     : "text-foreground border-border hover:border-foreground shadow-md"
                 }`}
               >
-                <Icon className={`w-5 h-5 flex-shrink-0 ${
+                <Icon className={`h-4 w-4 flex-shrink-0 ${
                   isSelected ? "text-foreground" : "text-muted-foreground"
                 }`} />
                 <span className="text-sm font-medium flex-1">
@@ -56,14 +56,14 @@ export function PaymentMethodSection({
                 <RadioGroupItem value={method.id} id={method.id} className="sr-only" />
                 <div className="flex-shrink-0">
                   <div
-                    className={`h-5 w-5 rounded-full border-2 flex items-center justify-center ${
+                    className={`h-4 w-4 rounded-full border-2 flex items-center justify-center ${
                       isSelected
                         ? "border-blue-600 bg-blue-600"
                         : "border-gray-300 bg-white"
                     }`}
                   >
                     {isSelected && (
-                      <div className="h-1.5 w-1.5 rounded-full bg-white" />
+                      <div className="h-1 w-1 rounded-full bg-white" />
                     )}
                   </div>
                 </div>

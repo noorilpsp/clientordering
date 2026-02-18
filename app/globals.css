@@ -475,3 +475,37 @@ html.vivid {
   animation: bell-wobble 8s ease-in-out infinite;
   transform-origin: top center;
 }
+
+/* Subtle motion for dine-in toggle icon */
+@keyframes dine-icon-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-2px) rotate(-4deg); }
+}
+
+.dine-icon-float {
+  animation: dine-icon-float 3.2s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* Toggle color adaptation for pickup running lottie */
+.runner-icon-dark {
+  filter: none;
+  transition: filter 220ms ease;
+}
+
+.runner-icon-light {
+  filter: invert(1) brightness(1.2) contrast(1.1);
+  transition: filter 220ms ease;
+}
+
+.vivid .runner-icon-light {
+  filter: none;
+}
+
+.runner-icon-white {
+  filter: brightness(0) invert(1) contrast(1.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dine-icon-float { animation: none; }
+}
